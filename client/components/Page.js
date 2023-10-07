@@ -3,7 +3,8 @@ import React from "react";
 const Page = ({ children, type }) => {
   return (
     <div>
-      <p>Page {type}</p>
+      <p>Page Component</p>
+      <h1>{type}</h1>
       {children}
     </div>
   );

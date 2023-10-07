@@ -1,12 +1,5 @@
-import React from "react";
-import Page from "../components/Page";
-
 const sell = () => {
-  return (
-    <Page>
-      <div>Im here to sell</div>
-    </Page>
-  );
+  return <div>Im here to sell</div>;
 };
 
 export default sell;
