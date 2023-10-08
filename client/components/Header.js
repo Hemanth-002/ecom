@@ -1,17 +1,51 @@
 import Link from "next/link";
-import Navbar from "./NavBar";
+
+import styled from "styled-components";
+import Navbar from "./Navbar";
+
+const Logo = styled.h1`
+  font-size: 4rem;
+  position: relative;
+  margin-left: 2rem;
+  z-index: 2;
+  background: red;
+  transform: skew(-7deg);
+  a {
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+  }
+`;
+
+const StyledHeader = styled.header`
+  .bar {
+    border-bottom: 10px solid black;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .sub-bar{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    border-bottom: 1px solid black;
+  }
+`;
 
 const Header = () => {
   return (
-    <header>
+    <StyledHeader>
       <div className="bar">
-        <Link href="/">EKart</Link>
+        <Logo>
+          <Link href="/">Shopz</Link>
+        </Logo>
       </div>
       <div className="sub-bar">
         <p>Search</p>
       </div>
       <Navbar />
-    </header>
+    </StyledHeader>
   );
 };
 

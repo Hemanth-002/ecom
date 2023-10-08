@@ -12,6 +12,7 @@
   "dependencies": {
     "@next/eslint-plugin-next": "^13.5.4",
     "next": "13.5.4",
+    "nprogress": "^0.2.0",
     "react": "^18",
     "react-dom": "^18",
     "styled-components": "^6.0.8"
