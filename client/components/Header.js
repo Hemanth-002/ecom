@@ -8,7 +8,7 @@ const Logo = styled.h1`
   position: relative;
   margin-left: 2rem;
   z-index: 2;
-  background: red;
+  background: #bada55;
   transform: skew(-7deg);
   a {
     color: white;
@@ -26,7 +26,7 @@ const StyledHeader = styled.header`
     justify-content: space-between;
     align-items: center;
   }
-  .sub-bar{
+  .sub-bar {
     display: grid;
     grid-template-columns: auto 1fr;
     border-bottom: 1px solid black;
@@ -38,7 +38,7 @@ const Header = () => {
     <StyledHeader>
       <div className="bar">
         <Logo>
-          <Link href="/">Shopz</Link>
+          <Link href="/">Shopee</Link>
         </Logo>
       </div>
       <div className="sub-bar">
