@@ -18,3 +18,11 @@ model User {
   password  String
   createdAt DateTime? @default(now())
 }
+
+model Product {
+  id          String  @id @default(cuid())
+  name        String  @default("")
+  description String  @default("")
+  status      String? @default("draft")
+  price       Int?
+}

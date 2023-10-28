@@ -24,7 +24,7 @@ __export(keystone_exports, {
 });
 module.exports = __toCommonJS(keystone_exports);
 var import_config = require("dotenv/config");
-var import_core2 = require("@keystone-6/core");
+var import_core3 = require("@keystone-6/core");
 
 // src/schema/User.ts
 var import_core = require("@keystone-6/core");
@@ -46,9 +46,39 @@ var User = (0, import_core.list)({
   }
 });
 
+// src/schema/Product.ts
+var import_core2 = require("@keystone-6/core");
+var import_access2 = require("@keystone-6/core/access");
+var import_fields2 = require("@keystone-6/core/fields");
+var Product = (0, import_core2.list)({
+  access: import_access2.allowAll,
+  fields: {
+    name: (0, import_fields2.text)({ validation: { isRequired: true } }),
+    description: (0, import_fields2.text)({
+      ui: {
+        displayMode: "textarea"
+      }
+    }),
+    status: (0, import_fields2.select)({
+      options: [
+        { label: "Draft", value: "draft" },
+        { label: "Available", value: "available" },
+        { label: "Unavailable", value: "unavailable" }
+      ],
+      defaultValue: "draft",
+      ui: {
+        displayMode: "segmented-control"
+      }
+    }),
+    price: (0, import_fields2.integer)()
+    // Todo: Photo Relationship Media
+  }
+});
+
 // src/schema.ts
 var lists = {
-  User
+  User,
+  Product
 };
 
 // auth.ts
@@ -77,7 +107,7 @@ var session = (0, import_session.statelessSessions)({
 // keystone.ts
 var databaseURL = process.env.DATABASE_URL || "mongodb://localhost/shopee";
 var keystone_default = withAuth(
-  (0, import_core2.config)({
+  (0, import_core3.config)({
     server: {
       cors: {
         origin: [process.env.CLIENT_URL],
