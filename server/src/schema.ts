@@ -5,8 +5,10 @@
 // If you want to learn more about how lists are configured, please read
 import { User } from "./schema/User";
 import { Product } from "./schema/Product";
+import { Image } from "./schema/Image";
 
 export const lists = {
   User,
   Product,
+  Image,
 };

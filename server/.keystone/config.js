@@ -24,7 +24,7 @@ __export(keystone_exports, {
 });
 module.exports = __toCommonJS(keystone_exports);
 var import_config = require("dotenv/config");
-var import_core3 = require("@keystone-6/core");
+var import_core4 = require("@keystone-6/core");
 
 // src/schema/User.ts
 var import_core = require("@keystone-6/core");
@@ -75,10 +75,34 @@ var Product = (0, import_core2.list)({
   }
 });
 
+// src/schema/Image.ts
+var import_cloudinary = require("@keystone-6/cloudinary");
+var import_core3 = require("@keystone-6/core");
+var import_access3 = require("@keystone-6/core/access");
+var import_fields3 = require("@keystone-6/core/fields");
+var cloudinary = {
+  cloudName: process.env.CLOUDINARY_NAME || "",
+  apiKey: process.env.CLOUDINARY_API_KEY || "",
+  apiSecret: process.env.CLOUDINARY_API_SECRET || "",
+  folder: "shopee"
+};
+var Image = (0, import_core3.list)({
+  access: import_access3.allowAll,
+  fields: {
+    name: (0, import_fields3.text)({ validation: { isRequired: true } }),
+    image: (0, import_cloudinary.cloudinaryImage)({
+      cloudinary
+    }),
+    altText: (0, import_fields3.text)()
+    // Todo: Photo Relationship Media
+  }
+});
+
 // src/schema.ts
 var lists = {
   User,
-  Product
+  Product,
+  Image
 };
 
 // auth.ts
@@ -107,7 +131,7 @@ var session = (0, import_session.statelessSessions)({
 // keystone.ts
 var databaseURL = process.env.DATABASE_URL || "mongodb://localhost/shopee";
 var keystone_default = withAuth(
-  (0, import_core3.config)({
+  (0, import_core4.config)({
     server: {
       cors: {
         origin: [process.env.CLIENT_URL],

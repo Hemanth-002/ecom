@@ -26,3 +26,10 @@ model Product {
   status      String? @default("draft")
   price       Int?
 }
+
+model Image {
+  id      String @id @default(cuid())
+  name    String @default("")
+  image   Json?
+  altText String @default("")
+}
