@@ -122,6 +122,7 @@ type Product {
   name: String
   description: String
   status: String
+  image: Image
   price: Int
 }
 
@@ -137,6 +138,7 @@ input ProductWhereInput {
   name: StringFilter
   description: StringFilter
   status: StringNullableFilter
+  image: ImageWhereInput
   price: IntNullableFilter
 }
 
@@ -178,7 +180,14 @@ input ProductUpdateInput {
   name: String
   description: String
   status: String
+  image: ImageRelateToOneForUpdateInput
   price: Int
+}
+
+input ImageRelateToOneForUpdateInput {
+  create: ImageCreateInput
+  connect: ImageWhereUniqueInput
+  disconnect: Boolean
 }
 
 input ProductUpdateArgs {
@@ -190,7 +199,13 @@ input ProductCreateInput {
   name: String
   description: String
   status: String
+  image: ImageRelateToOneForCreateInput
   price: Int
+}
+
+input ImageRelateToOneForCreateInput {
+  create: ImageCreateInput
+  connect: ImageWhereUniqueInput
 }
 
 type Image {
@@ -198,6 +213,7 @@ type Image {
   name: String
   image: CloudinaryImage_File
   altText: String
+  product: Product
 }
 
 type CloudinaryImage_File {
@@ -259,6 +275,7 @@ input ImageWhereInput {
   id: IDFilter
   name: StringFilter
   altText: StringFilter
+  product: ProductWhereInput
 }
 
 input ImageOrderByInput {
@@ -271,10 +288,17 @@ input ImageUpdateInput {
   name: String
   image: Upload
   altText: String
+  product: ProductRelateToOneForUpdateInput
 }
 
 """The `Upload` scalar type represents a file upload."""
 scalar Upload
+
+input ProductRelateToOneForUpdateInput {
+  create: ProductCreateInput
+  connect: ProductWhereUniqueInput
+  disconnect: Boolean
+}
 
 input ImageUpdateArgs {
   where: ImageWhereUniqueInput!
@@ -285,6 +309,12 @@ input ImageCreateInput {
   name: String
   image: Upload
   altText: String
+  product: ProductRelateToOneForCreateInput
+}
+
+input ProductRelateToOneForCreateInput {
+  create: ProductCreateInput
+  connect: ProductWhereUniqueInput
 }
 
 """

@@ -70,8 +70,16 @@ var Product = (0, import_core2.list)({
         displayMode: "segmented-control"
       }
     }),
+    image: (0, import_fields2.relationship)({
+      ref: "Image.product",
+      ui: {
+        displayMode: "cards",
+        cardFields: ["image", "altText"],
+        inlineCreate: { fields: ["image", "altText", "name"] },
+        inlineEdit: { fields: ["image", "altText"] }
+      }
+    }),
     price: (0, import_fields2.integer)()
-    // Todo: Photo Relationship Media
   }
 });
 
@@ -93,8 +101,10 @@ var Image = (0, import_core3.list)({
     image: (0, import_cloudinary.cloudinaryImage)({
       cloudinary
     }),
-    altText: (0, import_fields3.text)()
-    // Todo: Photo Relationship Media
+    altText: (0, import_fields3.text)(),
+    product: (0, import_fields3.relationship)({
+      ref: "Product.image"
+    })
   }
 });
 

@@ -24,12 +24,15 @@ model Product {
   name        String  @default("")
   description String  @default("")
   status      String? @default("draft")
+  image       Image?  @relation("Image_product")
   price       Int?
 }
 
 model Image {
-  id      String @id @default(cuid())
-  name    String @default("")
-  image   Json?
-  altText String @default("")
+  id        String   @id @default(cuid())
+  name      String   @default("")
+  image     Json?
+  altText   String   @default("")
+  product   Product? @relation("Image_product", fields: [productId], references: [id])
+  productId String?  @unique @map("product")
 }

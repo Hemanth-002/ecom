@@ -1,6 +1,6 @@
 import { list } from "@keystone-6/core";
 import { allowAll } from "@keystone-6/core/access";
-import { integer, select, text } from "@keystone-6/core/fields";
+import { integer, relationship, select, text } from "@keystone-6/core/fields";
 
 export const Product = list({
   access: allowAll,
@@ -22,7 +22,15 @@ export const Product = list({
         displayMode: "segmented-control",
       },
     }),
+    image: relationship({
+      ref: "Image.product",
+      ui: {
+        displayMode: "cards",
+        cardFields: ["image", "altText"],
+        inlineCreate: { fields: ["image", "altText", "name"] },
+        inlineEdit: { fields: ["image", "altText"] },
+      },
+    }),
     price: integer(),
-    // Todo: Photo Relationship Media
   },
 });
