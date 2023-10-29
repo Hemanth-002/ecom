@@ -10,7 +10,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.6",
     "@next/eslint-plugin-next": "^13.5.4",
+    "graphql": "^16.8.1",
     "next": "13.5.4",
     "nprogress": "^0.2.0",
     "react": "^18",
