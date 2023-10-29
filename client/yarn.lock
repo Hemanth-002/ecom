@@ -1129,6 +1129,11 @@
   resolved "https://registry.npmjs.org/@eslint/js/-/js-8.50.0.tgz"
   integrity sha512-NCC3zz2+nvYd+Ckfh87rA47zfu2QsQpvc6k1yzTk+b9KzRj0wkGa8LSoGOXN6Zv4lRf/EIoZ80biDh9HOI+RNQ==
 
+"@fontsource-variable/kumbh-sans@^5.0.13":
+  version "5.0.13"
+  resolved "https://registry.yarnpkg.com/@fontsource-variable/kumbh-sans/-/kumbh-sans-5.0.13.tgz#950584109eb8718abf3809c675fa8c203a4619e3"
+  integrity sha512-LanArvppXsDvYr4gTa5BxI0kdJrdgdd4qzYT5UgwIho7Ux/WVOGA6d1qf5q6ARxM44I4ak0XRObk/SM5WsqmTg==
+
 "@graphql-typed-document-node/core@^3.1.1":
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/@graphql-typed-document-node/core/-/core-3.2.0.tgz#5f3d96ec6b2354ad6d8a28bf216a1d97b5426861"

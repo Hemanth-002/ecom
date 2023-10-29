@@ -1,6 +1,8 @@
 import React from "react";
-import Header from "./Header";
+import '@fontsource-variable/kumbh-sans'; 
 import styled, { createGlobalStyle } from "styled-components";
+
+import Header from "./Header";
 
 const GlobalStyles = createGlobalStyle`
 
@@ -18,8 +20,8 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    margin: 0;
+    font-family: 'Kumbh Sans Variable', sans-serif;
+    margin: 1rem 3rem;
     padding: 0;
     font-size: 1.5rem;
     line-height: 2;

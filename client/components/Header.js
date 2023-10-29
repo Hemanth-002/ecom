@@ -4,25 +4,23 @@ import styled from "styled-components";
 import Navbar from "./Navbar";
 
 const Logo = styled.h1`
-  font-size: 4rem;
+  font-size: 1.5rem;
   position: relative;
-  margin-left: 2rem;
   z-index: 2;
-  background: #bada55;
-  transform: skew(-7deg);
   a {
-    color: white;
+    color: #333;
     text-decoration: none;
-    text-transform: uppercase;
     padding: 0.5rem 1rem;
+    :hover {
+      text-decoration: none;
+    }
   }
 `;
 
 const StyledHeader = styled.header`
   .bar {
-    border-bottom: 10px solid black;
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr 1fr;
     justify-content: space-between;
     align-items: center;
   }
@@ -40,11 +38,11 @@ const Header = () => {
         <Logo>
           <Link href="/">Shopee</Link>
         </Logo>
+        <Navbar />
       </div>
       <div className="sub-bar">
         <p>Search</p>
       </div>
-      <Navbar />
     </StyledHeader>
   );
 };
