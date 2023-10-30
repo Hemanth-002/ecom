@@ -40,9 +40,9 @@ const Header = () => {
         </Logo>
         <Navbar />
       </div>
-      <div className="sub-bar">
+      {/* <div className="sub-bar">
         <p>Search</p>
-      </div>
+      </div> */}
     </StyledHeader>
   );
 };
