@@ -20,6 +20,7 @@ const Logo = styled.h1`
 const StyledHeader = styled.header`
   .bar {
     display: grid;
+    margin: 1rem 3rem;
     grid-template-columns: 1fr 1fr;
     justify-content: space-between;
     align-items: center;
