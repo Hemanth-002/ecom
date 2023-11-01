@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Section2 } from "./Features";
 
-const Card = styled.div`
+export const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,14 +20,14 @@ export const Logo = styled.img`
   object-fit: contain;
 `;
 
-const CardTitle = styled.h2`
+export const CardTitle = styled.h2`
   font-size: 1.562rem;
   font-weight: 600;
 `;
 
 export const FeatureCard = ({ imgUrl, title, desctiption }) => {
   return (
-    <Card>
+    <Card bg={"#ffffffff"}>
       <Logo src={imgUrl} />
       <CardTitle>{title}</CardTitle>
       <Section2 style={{ textAlign: "center" }}>{desctiption}</Section2>

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { featureCardData, styleTypes } from "./constants";
+import { featureCardData, styleTypes } from "../constants/constants";
 import ButtonPrimary from "./ButtonPrimary";
 import { FeatureCard } from "./FeatureCard";
 
@@ -10,9 +10,9 @@ const Container = styled.div`
   position: absolute;
   left: 0;
   right: 0;
-  margin: 2rem 0 2rem;
+  margin: 2rem 0 0;
   padding: 3rem 4.75rem 5rem;
-  background-color: #55555519;
+  background-color: ${(props) => props?.bg || "#55555519"};
 `;
 
 const Title = styled.p`
@@ -70,7 +70,9 @@ export const Features = () => {
       <Title>Trusted by Fashion Enthusiasts Worldwide</Title>
       <StyleTypes>
         {styleTypes.map((item) => (
-          <Types font={item.font}>{item.name}</Types>
+          <Types key={item.id} font={item.font}>
+            {item.name}
+          </Types>
         ))}
       </StyleTypes>
       <SubContainer>
@@ -88,8 +90,13 @@ export const Features = () => {
         </Section2>
       </SubContainer>
       <StyleTypes>
-        {featureCardData.map(({ image, title, description }) => (
-          <FeatureCard imgUrl={image} title={title} desctiption={description} />
+        {featureCardData.map(({ id, image, title, description }) => (
+          <FeatureCard
+            key={id}
+            imgUrl={image}
+            title={title}
+            desctiption={description}
+          />
         ))}
       </StyleTypes>
     </Container>

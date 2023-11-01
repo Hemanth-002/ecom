@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import ButtonPrimary from "./ButtonPrimary";
 import { Features } from "./Features";
+import { StepstoStart } from "./StepstoStart";
 
 const HeroWrap = styled.div`
   display: flex;
@@ -54,6 +55,7 @@ const Hero = () => {
         </HeroSplit>
       </HeroWrap>
       <Features />
+      <StepstoStart />
     </>
   );
 };
