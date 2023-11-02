@@ -22,6 +22,7 @@ export const Logo = styled.img`
 
 export const CardTitle = styled.h2`
   font-size: 1.562rem;
+  margin: 0;
   font-weight: 600;
 `;
 

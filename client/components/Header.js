@@ -11,7 +11,7 @@ const Logo = styled.h1`
     color: #333;
     text-decoration: none;
     padding: 0.5rem 1rem;
-    :hover {
+    &:hover {
       text-decoration: none;
     }
   }
