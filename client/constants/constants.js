@@ -1,3 +1,21 @@
+export const HeroPageData = {
+  title: "Shop the Latest Trends in Fashion",
+  subTitle:
+    "Discover the newest fashion trends and shop the latest styles at Shopee. From casual wear to party outfits, we have everything you need to look your best. Our wide range of clothing options ensures that you will find the perfect fit for any occasion. Join the Shopee community and start shopping today!",
+  buttonText: "Shop Now",
+  imgUrl:
+    "https://res.cloudinary.com/storylens/image/upload/v1698557773/prgs7jdg2ntsexe8ybv2.jpg",
+};
+
+export const SellPageData = {
+  title: " Become a Shopee seller",
+  subTitle:
+    "Start your selling journey on Shopee and become a part of our seller community!",
+  buttonText: "Register Now",
+  // imgUrl:
+  //   "https://res.cloudinary.com/storylens/image/upload/v1698557773/prgs7jdg2ntsexe8ybv2.jpg",
+};
+
 export const styleTypes = [
   { id: 1, name: "Clothes", font: "Pacifico" },
   { id: 2, name: "Ecommerce", font: "Abril Fatface" },
