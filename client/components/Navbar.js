@@ -23,6 +23,7 @@ const Navbar = () => {
       <Link href="/products">Products</Link>
       <Link href="/sell">Sell</Link>
       <Link href="/orders">Orders</Link>
+      <Link href="/cart">Cart</Link>
       <Link href="/account">Account</Link>
     </Nav>
   );

@@ -12,12 +12,19 @@
   "dependencies": {
     "@apollo/client": "^3.8.6",
     "@fontsource-variable/kumbh-sans": "^5.0.13",
+    "@fontsource/abril-fatface": "^5.0.17",
+    "@fontsource/architects-daughter": "^5.0.8",
+    "@fontsource/cardo": "^5.0.8",
+    "@fontsource/great-vibes": "^5.0.17",
+    "@fontsource/pacifico": "^5.0.8",
     "@next/eslint-plugin-next": "^13.5.4",
+    "apollo-upload-client": "15.0.0",
     "graphql": "^16.8.1",
     "next": "13.5.4",
     "nprogress": "^0.2.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-icons": "^4.11.0",
     "styled-components": "^6.0.8"
   },
   "devDependencies": {

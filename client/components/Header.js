@@ -11,7 +11,7 @@ const Logo = styled.h1`
     color: #333;
     text-decoration: none;
     padding: 0.5rem 1rem;
-    :hover {
+    &:hover {
       text-decoration: none;
     }
   }
@@ -20,6 +20,7 @@ const Logo = styled.h1`
 const StyledHeader = styled.header`
   .bar {
     display: grid;
+    margin: 1rem 3rem;
     grid-template-columns: 1fr 1fr;
     justify-content: space-between;
     align-items: center;

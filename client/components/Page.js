@@ -1,5 +1,9 @@
-import React from "react";
 import '@fontsource-variable/kumbh-sans'; 
+import '@fontsource/abril-fatface'
+import '@fontsource/architects-daughter'
+import '@fontsource/cardo'
+import '@fontsource/great-vibes'
+import '@fontsource/pacifico'
 import styled, { createGlobalStyle } from "styled-components";
 
 import Header from "./Header";
@@ -21,7 +25,7 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: 'Kumbh Sans Variable', sans-serif;
-    margin: 1rem 3rem;
+    margin: 0;
     padding: 0;
     font-size: 1.5rem;
     line-height: 2;

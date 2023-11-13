@@ -1134,6 +1134,31 @@
   resolved "https://registry.yarnpkg.com/@fontsource-variable/kumbh-sans/-/kumbh-sans-5.0.13.tgz#950584109eb8718abf3809c675fa8c203a4619e3"
   integrity sha512-LanArvppXsDvYr4gTa5BxI0kdJrdgdd4qzYT5UgwIho7Ux/WVOGA6d1qf5q6ARxM44I4ak0XRObk/SM5WsqmTg==
 
+"@fontsource/abril-fatface@^5.0.17":
+  version "5.0.17"
+  resolved "https://registry.yarnpkg.com/@fontsource/abril-fatface/-/abril-fatface-5.0.17.tgz#6b38b0c47fbe8c1b6aca3b0a3d319f7e2c3c26de"
+  integrity sha512-2xYKVN40NvcN4wuQBEzlVm0cFXHOMm1YYPwDrBGRPsOKbsKsp58jX6iav7RcIEOrUrfkS7A7MGBmM0FPXivplQ==
+
+"@fontsource/architects-daughter@^5.0.8":
+  version "5.0.8"
+  resolved "https://registry.yarnpkg.com/@fontsource/architects-daughter/-/architects-daughter-5.0.8.tgz#c42dcab6f93e0b591f8ec4b7c3e3e25811a5095d"
+  integrity sha512-wgmCP60Diaw82vZTChkuHTGgA5/pC05nQKkI6apiawu37zP4lEeT5D02PVT9NDpqX83sDhLNWsNgN/P0O7lQhg==
+
+"@fontsource/cardo@^5.0.8":
+  version "5.0.8"
+  resolved "https://registry.yarnpkg.com/@fontsource/cardo/-/cardo-5.0.8.tgz#ea7f1380e041f50bba753592c20d3328e879d3f0"
+  integrity sha512-QtSXEHIPwBRE5Bkd8pf2TlyUGEVLOHmjFhamzI44x9GjcqyCuqRX1q9r2jq/7atf+VFBiAYG5biFonTrwUlbnQ==
+
+"@fontsource/great-vibes@^5.0.17":
+  version "5.0.17"
+  resolved "https://registry.yarnpkg.com/@fontsource/great-vibes/-/great-vibes-5.0.17.tgz#cfac474cbdfbfb51df70de0ca455c2920be6dca3"
+  integrity sha512-kBCBNeFqdPvWY43smQrkv5sXG4Tg9MvTKTVtgzobgbd5/Q6e1mTCvfe+SqndXniHvnCXHUgnzEIq+y35mSokEg==
+
+"@fontsource/pacifico@^5.0.8":
+  version "5.0.8"
+  resolved "https://registry.yarnpkg.com/@fontsource/pacifico/-/pacifico-5.0.8.tgz#e64744f93299b4a1762264abbda5102be1941b1b"
+  integrity sha512-0WQ50ZzIv3dP98ET8Pthr12cF6f8ova3FslIXjrtwh9mo2Xo60T1hzUhVNfZLFVtwd2MVH6MNVa85OCfqZ4/+w==
+
 "@graphql-typed-document-node/core@^3.1.1":
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/@graphql-typed-document-node/core/-/core-3.2.0.tgz#5f3d96ec6b2354ad6d8a28bf216a1d97b5426861"
@@ -3065,6 +3090,11 @@ react-dom@^18:
   dependencies:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
+
+react-icons@^4.11.0:
+  version "4.11.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.11.0.tgz#4b0e31c9bfc919608095cc429c4f1846f4d66c65"
+  integrity sha512-V+4khzYcE5EBk/BvcuYRq6V/osf11ODUM2J8hg2FDSswRrGvqiYUYPRy4OdrWaQOBj4NcpJfmHZLNaD+VH0TyA==
 
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
