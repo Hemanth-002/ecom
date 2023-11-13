@@ -18,6 +18,7 @@
     "@fontsource/great-vibes": "^5.0.17",
     "@fontsource/pacifico": "^5.0.8",
     "@next/eslint-plugin-next": "^13.5.4",
+    "apollo-upload-client": "15.0.0",
     "graphql": "^16.8.1",
     "next": "13.5.4",
     "nprogress": "^0.2.0",

@@ -4,32 +4,34 @@ import { CREATE_PRODUCT } from "../graphql/queries/products";
 import { useMutation } from "@apollo/client";
 
 const CreateProduct = () => {
-  const { inputs, handleChange } = useForm();
+  const { inputs, handleChange } = useForm({
+    image: null, // Initialize image as null
+    name: "new product",
+    price: 123,
+  });
 
-  const [createProduct] = useMutation(CREATE_PRODUCT);
+  const [createProduct, { loading, data, error }] = useMutation(CREATE_PRODUCT);
 
-  const handleSubmit = () => {
-    (e) => {
-      e.preventDefault();
-      console.log(inputs);
-      createProduct({
-        variables: {
-          data: {
-            name: inputs.name,
-            description: inputs.description,
-            price: inputs.price,
-            status: "AVAILABLE",
-            image: {
-              create: {
-                image: inputs.image,
-                name: inputs.name,
-                altText: inputs.name,
-              },
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(inputs);
+    await createProduct({
+      variables: {
+        data: {
+          name: inputs.name,
+          description: inputs.description,
+          price: inputs.price,
+          status: "available",
+          image: {
+            create: {
+              image: inputs.image,
+              name: inputs.name,
+              altText: inputs.name,
             },
           },
         },
-      });
-    };
+      },
+    });
   };
 
   return (
@@ -60,7 +62,6 @@ const CreateProduct = () => {
           type="file"
           name="image"
           placeholder="image"
-          value={inputs.image}
           onChange={handleChange}
         />
       </label>

@@ -6,7 +6,7 @@ import Product from "../components/Product";
 export const ProductsList = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem 3rem ;
+  gap: 2rem 3rem;
   grid-gap: 50px;
 `;
 
