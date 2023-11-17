@@ -21,7 +21,7 @@ const HeroSplit = styled.div`
   max-width: 46%;
   flex-direction: column;
 `;
-const SubHeader = styled.p`
+export const SubHeader = styled.p`
   font-size: 1.125rem;
   line-height: 1.75rem;
   text-align: left;

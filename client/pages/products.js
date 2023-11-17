@@ -13,7 +13,6 @@ export const ProductsList = styled.div`
 const products = () => {
   const { data, loading } = useQuery(GET_PRODUCTS);
 
-  console.log(data);
   if (loading) return <p>Loading...</p>;
   return (
     <div>

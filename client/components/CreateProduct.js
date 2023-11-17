@@ -1,4 +1,5 @@
 import React from "react";
+import Router from "next/router";
 import useForm from "../hooks/useForm";
 import { CREATE_PRODUCT } from "../graphql/queries/products";
 import { useMutation } from "@apollo/client";
@@ -10,29 +11,34 @@ const CreateProduct = () => {
     price: 123,
   });
 
-  const [createProduct, { loading, data, error }] = useMutation(CREATE_PRODUCT);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(inputs);
-    await createProduct({
-      variables: {
-        data: {
-          name: inputs.name,
-          description: inputs.description,
-          price: inputs.price,
-          status: "available",
-          image: {
-            create: {
-              image: inputs.image,
-              name: inputs.name,
-              altText: inputs.name,
-            },
+  const [createProduct, { data, loading }] = useMutation(CREATE_PRODUCT, {
+    variables: {
+      data: {
+        name: inputs.name,
+        description: inputs.description,
+        price: inputs.price,
+        status: "available",
+        image: {
+          create: {
+            image: inputs.image,
+            name: inputs.name,
+            altText: inputs.name,
           },
         },
       },
-    });
+    },
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await createProduct();
+    if (data)
+      Router.push({
+        pathname: `/products/${data?.createProduct.id}`,
+      });
   };
+
+  if (loading) return <p>Loading...</p>;
 
   return (
     <form onSubmit={handleSubmit}>

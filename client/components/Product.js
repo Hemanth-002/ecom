@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Router from "next/router";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { CardTitle } from "./FeatureCard";
 
@@ -26,10 +27,18 @@ export const Description = styled.p`
 `;
 
 const Product = ({ product }) => {
+  const handleRoute = () => {
+    Router.push({
+      pathname: `/products/${product?.id}`,
+    });
+  };
+
   return (
     <Card>
       <ProductImage src={product?.image?.image?.publicUrl} />
-      <CardTitle>{product.name}</CardTitle>
+      <CardTitle className="product-buldle" onClick={handleRoute}>
+        {product.name}
+      </CardTitle>
       <Description>{product.description}</Description>
       <Pricetag>₹{product.price}</Pricetag>
       <AiOutlineShoppingCart size={35} />

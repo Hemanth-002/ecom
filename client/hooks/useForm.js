@@ -23,7 +23,6 @@ const useForm = (intial = {}) => {
 
   const clear = () => {
     const emptyInput = Object.keys(inputs).map((item) => [item, ""]);
-    console.log(emptyInput);
     setInputs(emptyInput);
   };
 
