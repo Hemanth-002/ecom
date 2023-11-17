@@ -13,6 +13,7 @@ const Button = styled.button`
   color: #eee;
   letter-spacing: 1px;
   line-height: 1.5rem;
+  cursor: pointer;
 `;
 
 const ButtonPrimary = ({ text }) => {
