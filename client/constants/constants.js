@@ -8,7 +8,7 @@ export const HeroPageData = {
 };
 
 export const SellPageData = {
-  title: " Become a Shopee seller",
+  title: "Become a Shopee seller",
   subTitle:
     "Start your selling journey on Shopee and become a part of our seller community!",
   buttonText: "Register Now",

@@ -26,7 +26,7 @@ const useForm = (intial = {}) => {
     setInputs(emptyInput);
   };
 
-  return { inputs, handleChange, reset, clear };
+  return { inputs, handleChange, reset, clear, setInputs };
 };
 
 export default useForm;

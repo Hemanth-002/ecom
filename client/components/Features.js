@@ -12,7 +12,7 @@ const Container = styled.div`
   right: 0;
   margin: 2rem 0 0;
   padding: 3rem 4.75rem 5rem;
-  background-color: ${(props) => props?.bg || "#55555519"};
+  background-color: ${(props) => props?.$bg || "#55555519"};
 `;
 
 const Title = styled.p`
@@ -31,7 +31,7 @@ const StyleTypes = styled.div`
 `;
 
 const Types = styled.h1`
-  font-family: ${(props) => props.font};
+  font-family: ${(props) => props.$font};
   font-size: 2.25rem;
   line-height: 2.875rem;
 `;
@@ -70,7 +70,7 @@ export const Features = () => {
       <Title>Trusted by Fashion Enthusiasts Worldwide</Title>
       <StyleTypes>
         {styleTypes.map((item) => (
-          <Types key={item.id} font={item.font}>
+          <Types key={item.id} $font={item.font}>
             {item.name}
           </Types>
         ))}

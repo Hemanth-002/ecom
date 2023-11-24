@@ -5,6 +5,9 @@ import Page from "../components/Page";
 
 const uploadLink = createUploadLink({
   uri: "http://localhost:3000/api/graphql",
+  headers: {
+    "apollo-require-preflight": true,
+  },
 });
 
 const MyApp = ({ Component, pageProps }) => {

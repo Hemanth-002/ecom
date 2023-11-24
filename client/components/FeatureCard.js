@@ -32,7 +32,7 @@ export const CardTitle = styled.h2`
 
 export const FeatureCard = ({ imgUrl, title, desctiption }) => {
   return (
-    <Card bg={"#ffffffff"}>
+    <Card $bg="#ffffffff">
       <Logo src={imgUrl} />
       <CardTitle>{title}</CardTitle>
       <Section2 style={{ textAlign: "center" }}>{desctiption}</Section2>

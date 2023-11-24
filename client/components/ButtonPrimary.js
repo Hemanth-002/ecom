@@ -16,8 +16,8 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const ButtonPrimary = ({ text }) => {
-  return <Button>{text}</Button>;
+const ButtonPrimary = ({ text , handleClick}) => {
+  return <Button onClick={handleClick}>{text}</Button>;
 };
 
 export default ButtonPrimary;

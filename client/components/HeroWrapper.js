@@ -34,13 +34,13 @@ const HeroImage = styled.img`
   height: 37.5rem;
 `;
 
-const HeroWrapper = ({ title, subTitle, buttonText, imgUrl }) => {
+const HeroWrapper = ({ title, subTitle, buttonText, imgUrl, handleNext }) => {
   return (
     <HeroWrap>
       <HeroSplit>
         <HeroHeader>{title}</HeroHeader>
         <SubHeader>{subTitle}</SubHeader>
-        <ButtonPrimary text={buttonText} />
+        <ButtonPrimary text={buttonText} handleClick={handleNext} />
       </HeroSplit>
       <HeroSplit>
         <HeroImage src={imgUrl} />

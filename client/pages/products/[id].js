@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import styled from "styled-components";
 import { GET_PRODUCT } from "../../graphql/queries/individualProduct";
 import { Pricetag, ProductImage } from "../../components/Product";
@@ -13,6 +13,7 @@ const Product = styled.div`
 
 const ProductDetails = styled.div`
   display: flex;
+  gap: 1rem;
   flex-direction: column;
 `;
 
@@ -28,6 +29,15 @@ const IndividualProduct = () => {
 
   const { image, name, price, description } = data?.product || {};
 
+  const handleNext = () => {
+    Router.push({
+      pathname: `/update`,
+      query: {
+        id: productId,
+      },
+    });
+  };
+
   if (loading) return <p>Loading...</p>;
 
   return (
@@ -38,6 +48,7 @@ const IndividualProduct = () => {
         <Pricetag>₹{price}</Pricetag>
         <SubHeader>{description}</SubHeader>
         <ButtonPrimary text={"Add to Cart"} />
+        <ButtonPrimary text={"Edit"} handleClick={handleNext} />
       </ProductDetails>
     </Product>
   );

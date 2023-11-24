@@ -16,7 +16,7 @@ const Container = styled.div`
   width: 100%;
   color: #eee;
   z-index: 2;
-  background-color: ${(props) => props?.bg};
+  background-color: ${(props) => props?.$bg};
 `;
 
 const Title = styled.h1`
@@ -57,7 +57,7 @@ const Section = styled(Section2)`
 
 export const StepstoStart = () => {
   return (
-    <Container bg={"#111"}>
+    <Container $bg="#111">
       <Title>Super Easy to Start</Title>
       {stepsToStart.map(({ id, title, description }) => (
         <StepsCard key={id}>
