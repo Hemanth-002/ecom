@@ -49,7 +49,7 @@ export const CREATE_PRODUCT = gql`
 `;
 
 export const UPDATE_PRODUCT = gql`
-  mutation UpdateProduct(
+  mutation UPDATE_PRODUCT(
     $where: ProductWhereUniqueInput!
     $data: ProductUpdateInput!
   ) {
@@ -59,6 +59,14 @@ export const UPDATE_PRODUCT = gql`
       name
       price
       status
+    }
+  }
+`;
+
+export const DELETE_PRODUCT = gql`
+  mutation DELETE_PRODUCT($where: ProductWhereUniqueInput!) {
+    deleteProduct(where: $where) {
+      name
     }
   }
 `;
