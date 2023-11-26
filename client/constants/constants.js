@@ -71,3 +71,5 @@ export const stepsToStart = [
       "Once you're ready to checkout, review your items and proceed to payment. We accept secure and convenient payment options to ensure a hassle-free shopping experience.",
   },
 ];
+
+export const perPage = 6;

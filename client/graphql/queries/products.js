@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_PRODUCTS = gql`
-  query GET_PRODUCTS {
-    products {
+  query GET_PRODUCTS($take: Int, $skip: Int!) {
+    products(take: $take, skip: $skip) {
       id
       name
       price
@@ -68,5 +68,11 @@ export const DELETE_PRODUCT = gql`
     deleteProduct(where: $where) {
       name
     }
+  }
+`;
+
+export const PRODUCTS_COUNT = gql`
+  query PRODUCTS_COUNT {
+    productsCount
   }
 `;
