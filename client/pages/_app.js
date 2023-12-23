@@ -1,4 +1,5 @@
 import React from "react";
+import Head from "next/head";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { createUploadLink } from "apollo-upload-client";
 import Page from "../components/Page";
@@ -22,11 +23,16 @@ const MyApp = ({ Component, pageProps }) => {
   });
 
   return (
-    <ApolloProvider client={client}>
-      <Page>
-        <Component {...pageProps} />
-      </Page>
-    </ApolloProvider>
+    <>
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <ApolloProvider client={client}>
+        <Page>
+          <Component {...pageProps} />
+        </Page>
+      </ApolloProvider>
+    </>
   );
 };
 
