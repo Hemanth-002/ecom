@@ -5,6 +5,9 @@ import ButtonPrimary from "./ButtonPrimary";
 import { CardTitle } from "./FeatureCard";
 import Input from "./Input";
 import useForm from "../hooks/useForm";
+import { useMutation } from "@apollo/client";
+import { SIGNIN_MUTATION } from "../graphql/queries/signIn";
+import { QUERY_USER } from "../graphql/queries/user";
 
 const Form = styled.form`
   display: flex;
@@ -18,14 +21,32 @@ const Redirect = styled.a`
   cursor: pointer;
 `;
 
+const Error = styled.p`
+  color: red;
+  margin: 0;
+`;
+
 const LoginForm = ({ onChange, setOpen }) => {
   const { inputs, handleChange } = useForm();
+  const [signInerror, setsignInerror] = useState("");
+  const [login, { error, loading }] = useMutation(SIGNIN_MUTATION, {
+    variables: {
+      ...inputs,
+    },
+    refetchQueries: [{ query: QUERY_USER }],
+  });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const response = await login();
+    if (response?.data?.authenticateUserWithPassword?.message) {
+      setsignInerror(response?.data?.authenticateUserWithPassword?.message);
+      return;
+    }
     setOpen((prev) => !prev);
   };
 
+  if (loading) return <p>Loading...</p>;
   return (
     <>
       <Form onSubmit={handleSubmit}>
@@ -47,6 +68,7 @@ const LoginForm = ({ onChange, setOpen }) => {
           placeHolder="Password"
           onChange={handleChange}
         />
+        {signInerror?.length ? <Error>{signInerror}</Error> : null}
         <ButtonPrimary text={"Login"} type="submit" />
         <Redirect onClick={() => onChange(!true)}>
           NewUser click here to Signup
@@ -58,6 +80,7 @@ const LoginForm = ({ onChange, setOpen }) => {
 
 const SignUp = ({ onChange, setOpen }) => {
   const { inputs, handleChange } = useForm();
+  const [signUpError, setsignUpError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -94,6 +117,7 @@ const SignUp = ({ onChange, setOpen }) => {
           value={inputs.password}
           onChange={handleChange}
         />
+        {signUpError?.length ? <Error>{signUpError}</Error> : null}
         <ButtonPrimary text={"SignUp"} type="submit" />
         <Redirect onClick={() => onChange(!false)}>
           Existing User Login Here

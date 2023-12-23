@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const CREATE_USER = gql`
+export const QUERY_USER = gql`
   query User {
     authenticatedItem {
       ... on User {
