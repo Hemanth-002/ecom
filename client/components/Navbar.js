@@ -2,6 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { useUser } from "../hooks/useUser";
 import Login from "./Login";
+import LogOut from "./LogOut";
 
 const Nav = styled.nav`
   display: flex;
@@ -25,13 +26,13 @@ const Navbar = () => {
   return (
     <Nav>
       <Link href="/products">Products</Link>
-      <Login />
+      {!user && <Login />}
       {user && (
         <>
           <Link href="/sell">Sell</Link>
           <Link href="/orders">Orders</Link>
           <Link href="/cart">Cart</Link>
-          <Link href="/account">Account</Link>
+          <LogOut/>
         </>
       )}
     </Nav>

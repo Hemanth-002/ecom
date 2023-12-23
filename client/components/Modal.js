@@ -17,13 +17,14 @@ const ModalContent = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 25rem;
-  height: 28rem;
+  min-height: 28rem;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: white;
   border-radius: 8px;
   padding: 1.2rem;
+  overflow-y: scroll;
 `;
 
 const ModalComponent = ({ onChange, form }) => {

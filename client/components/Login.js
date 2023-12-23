@@ -6,8 +6,9 @@ import { CardTitle } from "./FeatureCard";
 import Input from "./Input";
 import useForm from "../hooks/useForm";
 import { useMutation } from "@apollo/client";
-import { SIGNIN_MUTATION } from "../graphql/queries/signIn";
+import { SIGNIN_MUTATION } from "../graphql/mutation/signIn";
 import { QUERY_USER } from "../graphql/queries/user";
+import { LOGIN_MUTATION } from "../graphql/mutation/login";
 
 const Form = styled.form`
   display: flex;
@@ -81,11 +82,22 @@ const LoginForm = ({ onChange, setOpen }) => {
 const SignUp = ({ onChange, setOpen }) => {
   const { inputs, handleChange } = useForm();
   const [signUpError, setsignUpError] = useState("");
+  const [login, { error, loading }] = useMutation(LOGIN_MUTATION, {
+    variables: {
+      data: inputs,
+    },
+  });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(inputs);
-    setOpen((prev) => !prev);
+    try {
+      await login();
+    } catch (e) {
+      setsignUpError(error?.message);
+      return;
+    }
+    alert(`Signed Up for ${inputs.email} go ahead and login`);
+    onChange(!false);
   };
 
   return (
@@ -103,6 +115,7 @@ const SignUp = ({ onChange, setOpen }) => {
         <Input
           name="email"
           title="Email"
+          type="email"
           required
           placeHolder="Email"
           value={inputs.email}
