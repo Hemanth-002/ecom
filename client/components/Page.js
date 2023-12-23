@@ -1,9 +1,10 @@
-import '@fontsource-variable/kumbh-sans'; 
-import '@fontsource/abril-fatface'
-import '@fontsource/architects-daughter'
-import '@fontsource/cardo'
-import '@fontsource/great-vibes'
-import '@fontsource/pacifico'
+import "@fontsource-variable/kumbh-sans";
+import "@fontsource/abril-fatface";
+import "@fontsource/architects-daughter";
+import "@fontsource/cardo";
+import "@fontsource/great-vibes";
+import "@fontsource/pacifico";
+import Head from "next/head";
 import styled, { createGlobalStyle } from "styled-components";
 
 import Header from "./Header";
@@ -53,6 +54,9 @@ const InnerStyles = styled.div`
 const Page = ({ children }) => {
   return (
     <div>
+      <Head>
+        <title>Shopee</title>
+      </Head>
       <GlobalStyles />
       <Header />
       <InnerStyles> {children}</InnerStyles>

@@ -56,7 +56,7 @@ export const Section2 = styled.p`
   margin-bottom: 0;
 `;
 
-const SectionHeader = styled.h1`
+export const SectionHeader = styled.h1`
   font-size: 3.565rem;
   line-height: 5rem;
   padding: 0.5rem 0 2rem;

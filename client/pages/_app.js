@@ -5,6 +5,10 @@ import Page from "../components/Page";
 
 const uploadLink = createUploadLink({
   uri: "http://localhost:3000/api/graphql",
+  credentials: "include",
+  fetchOptions: {
+    mode: "cors",
+  },
   headers: {
     "apollo-require-preflight": true,
   },
