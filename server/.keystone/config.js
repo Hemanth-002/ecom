@@ -130,6 +130,11 @@ var { withAuth } = (0, import_auth.createAuth)({
   secretField: "password",
   initFirstItem: {
     fields: ["name", "email", "password"]
+  },
+  passwordResetLink: {
+    async sendToken({ itemId, identity, token, context }) {
+      console.log(itemId, identity, token);
+    }
   }
 });
 var sessionMaxAge = 60 * 60 * 24 * 30;
