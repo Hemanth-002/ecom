@@ -6,11 +6,13 @@ import { CardTitle } from "./FeatureCard";
 import Input from "./Input";
 import useForm from "../hooks/useForm";
 import { useMutation } from "@apollo/client";
-import { SIGNIN_MUTATION } from "../graphql/mutation/signIn";
-import { QUERY_USER } from "../graphql/queries/user";
 import { LOGIN_MUTATION } from "../graphql/mutation/login";
+import { QUERY_USER } from "../graphql/queries/user";
+import { SIGNIN_MUTATION } from "../graphql/mutation/signin";
+import { REQUEST_RESET } from "../graphql/mutation/reset";
+import { useRouter } from "next/router";
 
-const Form = styled.form`
+export const Form = styled.form`
   display: flex;
   width: 80%;
   flex-direction: column;
@@ -18,27 +20,45 @@ const Form = styled.form`
   gap: 1rem;
 `;
 
-const Redirect = styled.a`
+export const Redirect = styled.a`
   cursor: pointer;
 `;
 
-const Error = styled.p`
+export const Error = styled.p`
   color: red;
   margin: 0;
 `;
 
 const LoginForm = ({ onChange, setOpen }) => {
   const { inputs, handleChange } = useForm();
+  const router = useRouter();
   const [signInerror, setsignInerror] = useState("");
-  const [login, { error, loading }] = useMutation(SIGNIN_MUTATION, {
+  const [forgotpassword, setforgotpassword] = useState(false);
+  const [login, { error, loading }] = useMutation(LOGIN_MUTATION, {
     variables: {
       ...inputs,
     },
     refetchQueries: [{ query: QUERY_USER }],
   });
 
+  const [reset, { error: resetError, loading: resetLoading }] = useMutation(
+    REQUEST_RESET,
+    {
+      variables: {
+        email: inputs.email,
+      },
+    }
+  );
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (forgotpassword) {
+      const res = await reset().catch(console.error);
+      if (res?.data?.sendUserPasswordResetLink === true)
+        router.push({ pathname: "/reset" });
+      setOpen((prev) => !prev);
+      return;
+    }
     const response = await login();
     if (response?.data?.authenticateUserWithPassword?.message) {
       setsignInerror(response?.data?.authenticateUserWithPassword?.message);
@@ -51,29 +71,53 @@ const LoginForm = ({ onChange, setOpen }) => {
   return (
     <>
       <Form onSubmit={handleSubmit}>
-        <CardTitle>Login</CardTitle>
-        <Input
-          name="email"
-          title="Email"
-          required
-          placeHolder="Email"
-          value={inputs.email}
-          onChange={handleChange}
-        />
-        <Input
-          name="password"
-          title="Password"
-          type="password"
-          required
-          value={inputs.password}
-          placeHolder="Password"
-          onChange={handleChange}
-        />
-        {signInerror?.length ? <Error>{signInerror}</Error> : null}
-        <ButtonPrimary text={"Login"} type="submit" />
-        <Redirect onClick={() => onChange(!true)}>
-          NewUser click here to Signup
-        </Redirect>
+        {!forgotpassword ? (
+          <>
+            <CardTitle>Login</CardTitle>
+            <Input
+              name="email"
+              title="Email"
+              required
+              placeHolder="Email"
+              value={inputs.email}
+              onChange={handleChange}
+            />
+            <Input
+              name="password"
+              title="Password"
+              type="password"
+              required
+              value={inputs.password}
+              placeHolder="Password"
+              onChange={handleChange}
+            />
+            {signInerror?.length ? <Error>{signInerror}</Error> : null}
+            <ButtonPrimary text={"Login"} type="submit" />
+            <Redirect onClick={() => setforgotpassword(true)}>
+              Forgot Password ??
+            </Redirect>
+            <Redirect onClick={() => onChange(!true)}>
+              NewUser click here to Signup
+            </Redirect>
+          </>
+        ) : (
+          <>
+            <CardTitle>Request Password Reset</CardTitle>
+
+            <Input
+              name="email"
+              title="Email"
+              required
+              placeHolder="Email"
+              value={inputs.email}
+              onChange={handleChange}
+            />
+            <ButtonPrimary text={"Reset Password"} type="submit" />
+            <Redirect onClick={() => setforgotpassword(false)}>
+              Go back to login page
+            </Redirect>
+          </>
+        )}
       </Form>
     </>
   );
@@ -82,7 +126,7 @@ const LoginForm = ({ onChange, setOpen }) => {
 const SignUp = ({ onChange, setOpen }) => {
   const { inputs, handleChange } = useForm();
   const [signUpError, setsignUpError] = useState("");
-  const [login, { error, loading }] = useMutation(LOGIN_MUTATION, {
+  const [login, { error, loading }] = useMutation(SIGNIN_MUTATION, {
     variables: {
       data: inputs,
     },

@@ -11,7 +11,7 @@ export const SellPageData = {
   title: "Become a Shopee seller",
   subTitle:
     "Start your selling journey on Shopee and become a part of our seller community!",
-  buttonText: "Register Now",
+  buttonText: "Sell Now",
   // imgUrl:
   //   "https://res.cloudinary.com/storylens/image/upload/v1698557773/prgs7jdg2ntsexe8ybv2.jpg",
 };
