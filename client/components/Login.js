@@ -41,14 +41,11 @@ const LoginForm = ({ onChange, setOpen }) => {
     refetchQueries: [{ query: QUERY_USER }],
   });
 
-  const [reset, { error: resetError, loading: resetLoading }] = useMutation(
-    REQUEST_RESET,
-    {
-      variables: {
-        email: inputs.email,
-      },
-    }
-  );
+  const [reset, { loading: resetLoading }] = useMutation(REQUEST_RESET, {
+    variables: {
+      email: inputs.email,
+    },
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,7 +64,7 @@ const LoginForm = ({ onChange, setOpen }) => {
     setOpen((prev) => !prev);
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading || resetLoading) return <p>Loading...</p>;
   return (
     <>
       <Form onSubmit={handleSubmit}>

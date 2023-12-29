@@ -119,6 +119,41 @@ var lists = {
 var import_crypto = require("crypto");
 var import_auth = require("@keystone-6/auth");
 var import_session = require("@keystone-6/core/session");
+
+// lib/mail.ts
+var import_nodemailer = require("nodemailer");
+var transporter = (0, import_nodemailer.createTransport)({
+  host: process.env.MAIL_HOST,
+  port: 587,
+  auth: {
+    user: process.env.MAIL_USERNAME,
+    pass: process.env.MAIL_PASSWORD
+  }
+});
+var emailTemplate = (text4) => {
+  return `
+        <div style="
+        border:1px solid black
+        padding:20px
+        font-family:sans-serif 
+        ">
+        <h2> Hello There!!</h2>
+        <p>${text4}</p>
+        </div>
+        `;
+};
+var sendPasswordResetEmail = async (token, to) => {
+  const emailData = await transporter.sendMail({
+    to,
+    from: "admin@shopee.com",
+    subject: "Password Rest Token",
+    html: emailTemplate(`Password Reset Token is here!
+    <a href="${process.env.CLIENT_URL}/reset?token=${token}">Click here to Reset</a>`)
+  });
+  console.log(emailData);
+};
+
+// auth.ts
 var sessionSecret = process.env.SESSION_SECRET;
 if (!sessionSecret && process.env.NODE_ENV !== "production") {
   sessionSecret = (0, import_crypto.randomBytes)(32).toString("hex");
@@ -132,8 +167,8 @@ var { withAuth } = (0, import_auth.createAuth)({
     fields: ["name", "email", "password"]
   },
   passwordResetLink: {
-    async sendToken({ itemId, identity, token, context }) {
-      console.log(itemId, identity, token);
+    async sendToken({ identity, token }) {
+      await sendPasswordResetEmail(token, identity);
     }
   }
 });

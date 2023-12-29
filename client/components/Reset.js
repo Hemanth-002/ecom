@@ -35,9 +35,10 @@ const Reset = () => {
     data?.redeemUserPasswordResetToken?.code != "TOKEN_REDEEMED"
       ? data?.redeemUserPasswordResetToken?.message
       : undefined;
-  const success = !data?.redeemUserPasswordResetToken
-    ? "Password Updated Successfully, Go ahead and Sign In"
-    : undefined;
+  const success =
+    data?.redeemUserPasswordResetToken === null
+      ? "Password Updated Successfully, Go ahead and Sign In"
+      : undefined;
 
   const handleSubmit = async (e) => {
     e.preventDefault();

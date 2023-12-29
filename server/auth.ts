@@ -20,6 +20,7 @@ import { createAuth } from "@keystone-6/auth";
 
 // see https://keystonejs.com/docs/apis/session for the session docs
 import { statelessSessions } from "@keystone-6/core/session";
+import { sendPasswordResetEmail } from "./lib/mail";
 
 // for a stateless session, a SESSION_SECRET should always be provided
 //   especially in production (statelessSessions will throw if SESSION_SECRET is undefined)
@@ -40,8 +41,8 @@ const { withAuth } = createAuth({
     fields: ["name", "email", "password"],
   },
   passwordResetLink: {
-    async sendToken({ itemId, identity, token, context }) {
-      console.log(itemId, identity, token);
+    async sendToken({ identity, token }) {
+      await sendPasswordResetEmail(token, identity);
     },
   },
 });
