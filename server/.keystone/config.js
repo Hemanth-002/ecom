@@ -24,7 +24,7 @@ __export(keystone_exports, {
 });
 module.exports = __toCommonJS(keystone_exports);
 var import_config = require("dotenv/config");
-var import_core4 = require("@keystone-6/core");
+var import_core5 = require("@keystone-6/core");
 
 // src/schema/User.ts
 var import_core = require("@keystone-6/core");
@@ -40,6 +40,14 @@ var User = (0, import_core.list)({
     }),
     password: (0, import_fields.password)({ validation: { isRequired: true } }),
     //posts: relationship({ ref: 'Post.author', many: true }),
+    cart: (0, import_fields.relationship)({
+      ref: "Cart.user",
+      many: true,
+      ui: {
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "read" }
+      }
+    }),
     createdAt: (0, import_fields.timestamp)({
       defaultValue: { kind: "now" }
     })
@@ -108,11 +116,30 @@ var Image = (0, import_core3.list)({
   }
 });
 
+// src/schema/Cart.ts
+var import_core4 = require("@keystone-6/core");
+var import_access4 = require("@keystone-6/core/access");
+var import_fields4 = require("@keystone-6/core/fields");
+var Cart = (0, import_core4.list)({
+  access: import_access4.allowAll,
+  fields: {
+    product: (0, import_fields4.relationship)({ ref: "Product" }),
+    user: (0, import_fields4.relationship)({
+      ref: "User.cart"
+    }),
+    quantity: (0, import_fields4.integer)({
+      defaultValue: 1,
+      validation: { isRequired: true }
+    })
+  }
+});
+
 // src/schema.ts
 var lists = {
   User,
   Product,
-  Image
+  Image,
+  Cart
 };
 
 // auth.ts
@@ -181,7 +208,7 @@ var session = (0, import_session.statelessSessions)({
 // keystone.ts
 var databaseURL = process.env.DATABASE_URL || "mongodb://localhost/shopee";
 var keystone_default = withAuth(
-  (0, import_core4.config)({
+  (0, import_core5.config)({
     server: {
       cors: {
         origin: [process.env.CLIENT_URL],

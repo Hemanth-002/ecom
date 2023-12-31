@@ -6,9 +6,11 @@
 import { User } from "./schema/User";
 import { Product } from "./schema/Product";
 import { Image } from "./schema/Image";
+import { Cart } from "./schema/Cart";
 
 export const lists = {
   User,
   Product,
   Image,
+  Cart
 };

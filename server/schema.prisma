@@ -16,6 +16,7 @@ model User {
   name                    String    @default("")
   email                   String    @unique @default("")
   password                String
+  cart                    Cart[]    @relation("Cart_user")
   createdAt               DateTime? @default(now())
   passwordResetToken      String?
   passwordResetIssuedAt   DateTime?
@@ -23,12 +24,13 @@ model User {
 }
 
 model Product {
-  id          String  @id @default(cuid())
-  name        String  @default("")
-  description String  @default("")
-  status      String? @default("draft")
-  image       Image?  @relation("Image_product")
-  price       Int?
+  id                String  @id @default(cuid())
+  name              String  @default("")
+  description       String  @default("")
+  status            String? @default("draft")
+  image             Image?  @relation("Image_product")
+  price             Int?
+  from_Cart_product Cart[]  @relation("Cart_product")
 }
 
 model Image {
@@ -38,4 +40,16 @@ model Image {
   altText   String   @default("")
   product   Product? @relation("Image_product", fields: [productId], references: [id])
   productId String?  @unique @map("product")
+}
+
+model Cart {
+  id        String   @id @default(cuid())
+  product   Product? @relation("Cart_product", fields: [productId], references: [id])
+  productId String?  @map("product")
+  user      User?    @relation("Cart_user", fields: [userId], references: [id])
+  userId    String?  @map("user")
+  quantity  Int      @default(1)
+
+  @@index([productId])
+  @@index([userId])
 }

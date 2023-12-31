@@ -20,7 +20,14 @@ export const User = list({
 
     password: password({ validation: { isRequired: true } }),
     //posts: relationship({ ref: 'Post.author', many: true }),
-
+    cart: relationship({
+      ref: "Cart.user",
+      many: true,
+      ui: {
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "read" },
+      },
+    }),
     createdAt: timestamp({
       defaultValue: { kind: "now" },
     }),
