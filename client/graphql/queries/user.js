@@ -8,6 +8,20 @@ export const QUERY_USER = gql`
         email
         name
         # TODO: Query orders , Cart 
+        cart {
+        id
+        quantity
+        product {
+          name
+          price
+          description
+          image {
+            image {
+              publicUrl
+            }
+          }
+        }
+      }
       }
     }
   }

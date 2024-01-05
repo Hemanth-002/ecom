@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import Reset from "../components/Reset";
+import Reset from "../components/Reset.js";
 
 const reset = () => {
   const router = useRouter();

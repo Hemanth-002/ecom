@@ -21,9 +21,19 @@ export const ProductImage = styled.img`
 `;
 
 export const Description = styled.p`
-  font-size: 1rem;
+  font-size: 0.9rem;
   height: 3rem;
-  margin: 0;
+  margin: 0.5rem;
+  max-width: fit-content;
+  text-overflow: ellipsis;
+`;
+
+export const CartCard = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 `;
 
 const Product = ({ product }) => {
@@ -40,8 +50,10 @@ const Product = ({ product }) => {
         {product.name}
       </CardTitle>
       <Description>{product.description}</Description>
-      <Pricetag>₹{product.price}</Pricetag>
-      <AiOutlineShoppingCart size={35} />
+      <CartCard>
+        <Pricetag>₹{product.price}</Pricetag>
+        <AiOutlineShoppingCart size={35} />
+      </CartCard>
     </Card>
   );
 };
