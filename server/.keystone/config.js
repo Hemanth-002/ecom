@@ -205,6 +205,40 @@ var session = (0, import_session.statelessSessions)({
   secret: sessionSecret
 });
 
+// mutations/index.ts
+var import_schema = require("@graphql-tools/schema");
+
+// mutations/addToCart.ts
+var addToCart = async (root, { productID }, context) => {
+  const sess = context.session;
+  if (!sess?.itemId) {
+    throw new Error("You Must be logged in ...");
+  }
+  const allCartItems = await context.query.cart.findMany({
+    where: { user: { id: sess.itemId }, product: { id: productID } }
+  });
+  console.log(allCartItems);
+};
+var addToCart_default = addToCart;
+
+// mutations/index.ts
+var graphql = String.raw;
+var extendGraphQLSchema = (baseSchema) => {
+  return (0, import_schema.mergeSchemas)({
+    schemas: [baseSchema],
+    typeDefs: graphql`
+      type Mutation {
+        addToCart(productID: ID!): Cart
+      }
+    `,
+    resolvers: {
+      Mutation: {
+        addToCart: addToCart_default
+      }
+    }
+  });
+};
+
 // keystone.ts
 var databaseURL = process.env.DATABASE_URL || "mongodb://localhost/shopee";
 var keystone_default = withAuth(
@@ -219,14 +253,14 @@ var keystone_default = withAuth(
       provider: "postgresql",
       url: databaseURL
     },
-    lists,
     ui: {
       /* Everyone who is signed in can access the Admin UI */
       isAccessAllowed: ({ session: session2 }) => {
-        console.log(session2);
         return !!session2;
       }
     },
+    lists,
+    extendGraphqlSchema: extendGraphQLSchema,
     session
   })
 );

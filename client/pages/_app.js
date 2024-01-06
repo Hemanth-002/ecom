@@ -5,12 +5,13 @@ import { createUploadLink } from "apollo-upload-client";
 import Page from "../components/Page";
 
 const uploadLink = createUploadLink({
-  uri: "http://localhost:3000/api/graphql",
+  uri: process.env.SERVER_URL,
   credentials: "include",
   fetchOptions: {
     mode: "cors",
   },
   headers: {
+    "Access-Control-Allow-Origin": "*",
     "apollo-require-preflight": true,
   },
 });
@@ -19,7 +20,7 @@ const MyApp = ({ Component, pageProps }) => {
   const client = new ApolloClient({
     cache: new InMemoryCache(),
     link: uploadLink,
-    uri: "http://localhost:3000/api/graphql",
+    uri: process.env.SERVER_URL,
   });
 
   return (

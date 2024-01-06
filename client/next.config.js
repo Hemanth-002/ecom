@@ -1,4 +1,18 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  output: "export",
+  basePath: "",
+  reactStrictMode: true,
+  swcMinify: true,
+  images: {
+    unoptimized: true,
+  },
+  compiler: {
+    styledComponents: true,
+  },
+  env: {
+    SERVER_URL: process.env.SERVER_URL,
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

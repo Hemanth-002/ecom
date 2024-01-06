@@ -6,9 +6,8 @@ import { CardTitle } from "./FeatureCard";
 import Input from "./Input";
 import useForm from "../hooks/useForm";
 import { useMutation } from "@apollo/client";
-import { LOGIN_MUTATION } from "../graphql/mutation/login";
+import { LOGIN_MUTATION, SIGNIN_MUTATION } from "../graphql/mutation/login";
 import { QUERY_USER } from "../graphql/queries/user";
-import { SIGNIN_MUTATION } from "../graphql/mutation/signin.js";
 import { REQUEST_RESET } from "../graphql/mutation/reset";
 import { useRouter } from "next/router";
 
