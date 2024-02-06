@@ -20,7 +20,7 @@ const MyApp = ({ Component, pageProps }) => {
   const client = new ApolloClient({
     cache: new InMemoryCache(),
     link: uploadLink,
-    uri: process.env.SERVER_URL,
+    // uri: process.env.SERVER_URL,
   });
 
   return (

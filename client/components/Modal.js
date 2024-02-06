@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { IoMdClose } from "react-icons/io";
 
 const Modal = styled.div`
   position: fixed;
@@ -20,6 +21,7 @@ const ModalContent = styled.div`
   min-height: 28rem;
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
   background-color: white;
   border-radius: 8px;
@@ -27,10 +29,15 @@ const ModalContent = styled.div`
   overflow-y: scroll;
 `;
 
-const ModalComponent = ({ onChange, form }) => {
+const ModalComponent = ({ setOpen, form }) => {
   return (
     <Modal>
-      <ModalContent>{form}</ModalContent>
+      <ModalContent>
+        <div style={{display:"flex",width:'100%',justifyContent: 'flex-end'}}>
+        <IoMdClose size={30} onClick={() => setOpen(false)}/>
+        </div>
+        {form}
+      </ModalContent>
     </Modal>
   );
 };

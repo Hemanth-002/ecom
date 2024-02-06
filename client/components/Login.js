@@ -193,7 +193,7 @@ const Login = () => {
   return (
     <div>
       <div onClick={() => setOpen(true)}>SignIn</div>
-      {open && <ModalComponent form={form} />}
+      {open && <ModalComponent form={form} setOpen={setOpen}/>}
     </div>
   );
 };
