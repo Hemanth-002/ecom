@@ -6,7 +6,6 @@ import Page from "../components/Page";
 
 const uploadLink = createUploadLink({
   uri: process.env.SERVER_URL,
-  credentials: "include",
   fetchOptions: {
     mode: "cors",
   },
