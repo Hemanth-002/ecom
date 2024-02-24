@@ -7,6 +7,7 @@ import { CardTitle } from "../../components/FeatureCard";
 import { SubHeader } from "../../components/HeroWrapper";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import { DELETE_PRODUCT } from "../../graphql/queries/products";
+import Spinner from "../../components/Spinner";
 
 const Product = styled.div`
   display: flex;
@@ -58,7 +59,7 @@ const IndividualProduct = () => {
     return;
   };
 
-  if (loading || delLoading) return <p>Loading...</p>;
+  if (loading || delLoading) return <Spinner />;
 
   return (
     <Product>

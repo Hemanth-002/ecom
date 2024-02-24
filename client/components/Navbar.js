@@ -1,8 +1,10 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { useUser } from "../hooks/useUser";
+import { getCookie } from "cookies-next";
+import { useState, useEffect } from "react";
 import Login from "./Login";
 import LogOut from "./LogOut";
+import { MyUser } from "../context/user";
 
 const Nav = styled.nav`
   display: flex;
@@ -22,17 +24,25 @@ const Nav = styled.nav`
 `;
 
 const Navbar = () => {
-  const user = useUser();
+  const { user, setUser } = MyUser();
+  const [isUserValid, setIsUserValid] = useState(user);
+
+  useEffect(() => {
+    // Check authentication status after component mounts on the client side
+    const userId = getCookie("userId");
+    setIsUserValid(user || userId);
+    setUser(user || userId);
+  }, [user]);
+
   return (
     <Nav>
       <Link href="/products">Products</Link>
-      {!user && <Login />}
-      {user && (
+      {!isUserValid && <Login />}
+      {isUserValid && (
         <>
           <Link href="/sell">Sell</Link>
           <Link href="/orders">Orders</Link>
-          <Link href="/cart">Cart</Link>
-          <LogOut/>
+          <LogOut />
         </>
       )}
     </Nav>

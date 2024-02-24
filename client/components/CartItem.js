@@ -51,16 +51,15 @@ export const SubName = styled.p`
 `;
 
 const CartItem = ({ item }) => {
-  const { product } = item;
-  if (!product) return null;
+  if (!item) return null;
   return (
     <Wrapper>
       <div>
-        <Name>{product?.name}</Name>
-        <Description>{product?.description}</Description>
+        <Name>{item?.name}</Name>
+        <Description>{item?.description}</Description>
         <SubName>
-          ₹{product?.price}* {item?.quantity} = ₹
-          {product?.price * item?.quantity}
+          ₹{item?.price}* {item?.quantity} = ₹
+          {item?.price * item?.quantity}
         </SubName>
       </div>
       <SubWrapper>
@@ -72,7 +71,7 @@ const CartItem = ({ item }) => {
             {/* <Quantity>➖</Quantity> */}
           </>
         ) : null}
-        <img src={product?.image?.image?.publicUrl} />
+        <img src={item.image} />
       </SubWrapper>
     </Wrapper>
   );

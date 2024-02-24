@@ -4,6 +4,7 @@ import "@fontsource/architects-daughter";
 import "@fontsource/cardo";
 import "@fontsource/great-vibes";
 import "@fontsource/pacifico";
+import { MyProvider } from "../context/user";
 import Head from "next/head";
 import styled, { createGlobalStyle } from "styled-components";
 
@@ -58,8 +59,10 @@ const Page = ({ children }) => {
         <title>Shopee</title>
       </Head>
       <GlobalStyles />
-      <Header />
-      <InnerStyles> {children}</InnerStyles>
+      <MyProvider>
+        <Header />
+        <InnerStyles> {children}</InnerStyles>
+      </MyProvider>
     </div>
   );
 };

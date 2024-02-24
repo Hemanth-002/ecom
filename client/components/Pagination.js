@@ -46,13 +46,12 @@ const PaginationStyle = styled.div`
 `;
 
 const Pagination = () => {
-  const { data, loading } = useQuery(PRODUCTS_COUNT);
+  const { data } = useQuery(PRODUCTS_COUNT);
   const productsCount = data?.productsCount;
   const totalPages = Math.ceil(productsCount / perPage);
 
   const [page, setPage] = useState(1);
 
-  if (loading) return <div>Loading..</div>;
 
   return (
     <Container>

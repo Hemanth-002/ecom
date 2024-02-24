@@ -7,22 +7,20 @@ import { perPage } from "../constants/constants";
 
 export const ProductsList = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem 3rem;
-  grid-gap: 50px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1rem;
 `;
 
 const Products = () => {
   const router = useRouter();
   const page = router?.query?.page || 0;
-  const { data, loading } = useQuery(GET_PRODUCTS, {
+  const { data } = useQuery(GET_PRODUCTS, {
     variables: {
       take: perPage,
       skip: (page - 1) * perPage > 0 ? (page - 1) * perPage : 0,
     },
   });
 
-  if (loading) return <p>Loading...</p>;
   return (
     <div>
       <ProductsList>

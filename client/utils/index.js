@@ -1,7 +1,7 @@
 export const getTotalCost = (items) => {
   return items?.reduce((acc, curr) => {
-    const { product } = curr || {};
-    acc += product?.price * curr?.quantity;
+    const { quantity, price } = curr || {};
+    acc += price * quantity;
     return acc;
   }, 0);
 };

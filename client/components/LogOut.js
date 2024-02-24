@@ -1,13 +1,27 @@
 import { useMutation } from "@apollo/client";
 import React from "react";
+import { deleteCookie } from "cookies-next";
 import { SIGNOUT_MUTATION } from "../graphql/mutation/signOut";
 import { QUERY_USER } from "../graphql/queries/user";
+import { MyUser } from "../context/user";
 
 const LogOut = () => {
+  const { setUser } = MyUser();
   const [signOut] = useMutation(SIGNOUT_MUTATION, {
     refetchQueries: [{ query: QUERY_USER }],
   });
-  return <div onClick={signOut}>Sign Out</div>;
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(); // Execute the sign out mutation
+      deleteCookie("userId");
+      setUser(false); // Update user context
+    } catch (e) {
+      alert("Can't log out");
+    }
+  };
+
+  return <div onClick={handleSignOut}>Sign Out</div>;
 };
 
 export default LogOut;

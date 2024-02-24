@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
+import { useQuery } from "@apollo/client";
 import styled from "styled-components";
-import { useUser } from "../hooks/useUser";
+import { IoMdClose } from "react-icons/io";
 import CartItem from "./CartItem";
 import { getTotalCost } from "../utils";
+import { MyUser } from "../context/user";
+import { GET_CART } from "../graphql/queries/cart";
 
 const Drawer = styled.div`
   display: ${({ open }) => (!open ? "none" : "flex")};
@@ -21,10 +24,11 @@ const Drawer = styled.div`
 `;
 
 const FilterButton = styled.button`
-  background-color: #3498db;
+  background-color: #555;
   color: #fff;
-  padding: 10px;
+  padding: 15px 20px;
   border: none;
+  border-radius: 1rem;
   cursor: pointer;
 `;
 
@@ -35,26 +39,59 @@ const Footer = styled.div`
 
 const CartGroup = styled.div``;
 
-const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const Sidebar = ({ isOpen, setIsOpen }) => {
+  const { user } = MyUser();
 
-  const user = useUser();
+  const { data } = useQuery(GET_CART, {
+    variables: {
+      where: {
+        user: {
+          id: {
+            equals: "clrvuephj0000xytxywn0ruhb",
+          },
+        },
+      },
+    },
+  });
 
-  if (!user) return null;
+  const cartsData = data?.carts?.map((cartItem) => {
+    return {
+      id: cartItem.id,
+      name: cartItem.product.name,
+      price: cartItem.product.price,
+      status: cartItem.product.status,
+      description: cartItem.product.description,
+      image: cartItem.product?.image?.image?.publicUrl,
+      quantity: cartItem.quantity,
+    };
+  });
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+  const totalPrice = getTotalCost(cartsData || []);
 
-  const totalPrice = getTotalCost(user?.cart || []);
+  if (!user) return null;
+
   return (
     <>
-      <FilterButton onClick={toggleSidebar}>Open Cart</FilterButton>
+      <div style={{ display: "flex" }}>
+        <FilterButton onClick={toggleSidebar}>Open Cart</FilterButton>
+      </div>
       <Drawer open={isOpen}>
         <div>
-          <h3>Your Shopee Cart</h3>
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "space-between",
+            }}
+          >
+            <h3>Your Shopee Cart</h3>
+            <IoMdClose size={30} onClick={() => setIsOpen(false)} />
+          </div>
           <CartGroup>
-            {user?.cart?.map((item) => (
+            {cartsData?.map((item) => (
               <CartItem item={item} key={item.id} />
             ))}
           </CartGroup>
