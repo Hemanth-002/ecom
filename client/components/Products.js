@@ -11,7 +11,7 @@ export const ProductsList = styled.div`
   grid-gap: 1rem;
 `;
 
-const Products = () => {
+const Products = ({ setIsOpen }) => {
   const router = useRouter();
   const page = router?.query?.page || 0;
   const { data } = useQuery(GET_PRODUCTS, {
@@ -25,7 +25,7 @@ const Products = () => {
     <div>
       <ProductsList>
         {data?.products?.map((product) => (
-          <Product key={product.id} product={product} />
+          <Product key={product.id} product={product} setIsOpen={setIsOpen} />
         ))}
       </ProductsList>
     </div>

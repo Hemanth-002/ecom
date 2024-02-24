@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import Router from "next/router";
+import { useMutation } from "@apollo/client";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { CardTitle } from "./FeatureCard";
+import Spinner from "../components/Spinner";
+import { ADD_TO_CART, GET_CART } from "../graphql/queries/cart";
+import { MyUser } from "../context/user";
 
 const Card = styled.div`
   display: flex;
@@ -24,7 +28,7 @@ export const ProductImage = styled.img`
 export const Description = styled.p`
   font-size: 0.9rem;
   height: 3rem;
-  margin:0.5rem 0.5rem 1rem 0.5rem;
+  margin: 0.5rem 0.5rem 1rem 0.5rem;
   max-width: fit-content;
   text-overflow: ellipsis;
 `;
@@ -41,17 +45,52 @@ export const CartCard = styled.div`
   align-items: center;
 `;
 
-const Product = ({ product }) => {
+const Product = ({ product, setIsOpen }) => {
+  const { user: userId } = MyUser();
+
   const handleRoute = () => {
     Router.push({
       pathname: `/products/${product?.id}`,
     });
   };
 
+  const [addtoCart, { loading }] = useMutation(ADD_TO_CART, {
+    variables: {
+      data: {
+        quantity: 1,
+        user: {
+          connect: {
+            id: userId,
+          },
+        },
+        product: {
+          connect: {
+            id: product.id,
+          },
+        },
+      },
+    },
+    refetchQueries: [
+      {
+        query: GET_CART,
+        variables: {
+          where: {
+            user: {
+              id: {
+                equals: userId,
+              },
+            },
+          },
+        },
+      },
+    ],
+  });
   const truncatedDescription =
     product.description.length > 70
       ? `${product.description.substring(0, 70)}...`
       : product.description;
+
+  if (loading) return <Spinner />;
   return (
     <Card>
       <ProductImage src={product?.image?.image?.publicUrl} />
@@ -61,7 +100,14 @@ const Product = ({ product }) => {
       <Description>{truncatedDescription}</Description>
       <CartCard>
         <Pricetag>₹{product.price}</Pricetag>
-        <AiOutlineShoppingCart size={35} style={{ cursor: "pointer" }} />
+        <AiOutlineShoppingCart
+          size={35}
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            setIsOpen(true);
+            addtoCart();
+          }}
+        />
       </CartCard>
     </Card>
   );

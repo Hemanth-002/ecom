@@ -40,14 +40,14 @@ const Footer = styled.div`
 const CartGroup = styled.div``;
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
-  const { user } = MyUser();
+  const { user: userId } = MyUser();
 
   const { data } = useQuery(GET_CART, {
     variables: {
       where: {
         user: {
           id: {
-            equals: "clrvuephj0000xytxywn0ruhb",
+            equals: userId,
           },
         },
       },
@@ -71,7 +71,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   };
   const totalPrice = getTotalCost(cartsData || []);
 
-  if (!user) return null;
+  if (!userId) return null;
 
   return (
     <>

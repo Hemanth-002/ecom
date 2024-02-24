@@ -1,6 +1,7 @@
-import { useMutation } from "@apollo/client";
 import React from "react";
+import Router from "next/router";
 import { deleteCookie } from "cookies-next";
+import { useMutation } from "@apollo/client";
 import { SIGNOUT_MUTATION } from "../graphql/mutation/signOut";
 import { QUERY_USER } from "../graphql/queries/user";
 import { MyUser } from "../context/user";
@@ -19,6 +20,7 @@ const LogOut = () => {
     } catch (e) {
       alert("Can't log out");
     }
+    Router.push("/");
   };
 
   return <div onClick={handleSignOut}>Sign Out</div>;
