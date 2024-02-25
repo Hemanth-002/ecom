@@ -31,3 +31,11 @@ export const ADD_TO_CART = gql`
     }
   }
 `;
+
+export const REMOVE_FROM_CART = gql`
+  mutation Mutation($where: CartWhereUniqueInput!) {
+    deleteCart(where: $where) {
+      id
+    }
+  }
+`;

@@ -85,6 +85,16 @@ const Product = ({ product, setIsOpen }) => {
       },
     ],
   });
+
+  const cartHandler = () => {
+    if (!userId) {
+      alert("Please Login/signup to add to cart");
+      return
+    }
+    addtoCart();
+    setIsOpen(true);
+  };
+
   const truncatedDescription =
     product.description.length > 70
       ? `${product.description.substring(0, 70)}...`
@@ -103,10 +113,7 @@ const Product = ({ product, setIsOpen }) => {
         <AiOutlineShoppingCart
           size={35}
           style={{ cursor: "pointer" }}
-          onClick={() => {
-            setIsOpen(true);
-            addtoCart();
-          }}
+          onClick={cartHandler}
         />
       </CartCard>
     </Card>

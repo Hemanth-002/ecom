@@ -8,6 +8,7 @@ import { SubHeader } from "../../components/HeroWrapper";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import { DELETE_PRODUCT } from "../../graphql/queries/products";
 import Spinner from "../../components/Spinner";
+import { MyUser } from "../../context/user";
 
 const Product = styled.div`
   display: flex;
@@ -21,6 +22,7 @@ const ProductDetails = styled.div`
 
 const IndividualProduct = () => {
   const router = useRouter();
+  const { user: userId } = MyUser();
   const { id: productId } = router?.query;
 
   const { data, loading, error } = useQuery(GET_PRODUCT, {
@@ -69,10 +71,14 @@ const IndividualProduct = () => {
         <Pricetag>₹{price}</Pricetag>
         <SubHeader>{description}</SubHeader>
         <span style={{ display: "flex", gap: "10px" }}>
-          <ButtonPrimary text={"Add to Cart"} />
-          <ButtonPrimary text={"Edit"} handleClick={handleNext} />
+          {userId && (
+            <>
+              <ButtonPrimary text={"Add to Cart"} />
+              <ButtonPrimary text={"Edit"} handleClick={handleNext} />
+            </>
+          )}
         </span>
-        <ButtonPrimary text={"Delete"} handleClick={handleDelete} />
+        {userId && <ButtonPrimary text={"Delete"} handleClick={handleDelete} />}
       </ProductDetails>
     </Product>
   );

@@ -18,6 +18,11 @@ const Products = ({ setIsOpen }) => {
     variables: {
       take: perPage,
       skip: (page - 1) * perPage > 0 ? (page - 1) * perPage : 0,
+      orderBy: [
+        {
+          order: "asc",
+        },
+      ],
     },
   });
 

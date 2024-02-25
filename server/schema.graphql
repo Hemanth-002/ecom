@@ -161,6 +161,7 @@ input CartRelateToManyForCreateInput {
 type Product {
   id: ID!
   name: String
+  order: Int
   description: String
   status: String
   image: Image
@@ -177,10 +178,22 @@ input ProductWhereInput {
   NOT: [ProductWhereInput!]
   id: IDFilter
   name: StringFilter
+  order: IntNullableFilter
   description: StringFilter
   status: StringNullableFilter
   image: ImageWhereInput
   price: IntNullableFilter
+}
+
+input IntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: IntNullableFilter
 }
 
 input StringNullableFilter {
@@ -198,20 +211,10 @@ input StringNullableFilter {
   not: StringNullableFilter
 }
 
-input IntNullableFilter {
-  equals: Int
-  in: [Int!]
-  notIn: [Int!]
-  lt: Int
-  lte: Int
-  gt: Int
-  gte: Int
-  not: IntNullableFilter
-}
-
 input ProductOrderByInput {
   id: OrderDirection
   name: OrderDirection
+  order: OrderDirection
   description: OrderDirection
   status: OrderDirection
   price: OrderDirection
@@ -219,6 +222,7 @@ input ProductOrderByInput {
 
 input ProductUpdateInput {
   name: String
+  order: Int
   description: String
   status: String
   image: ImageRelateToOneForUpdateInput
@@ -238,6 +242,7 @@ input ProductUpdateArgs {
 
 input ProductCreateInput {
   name: String
+  order: Int
   description: String
   status: String
   image: ImageRelateToOneForCreateInput

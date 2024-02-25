@@ -6,6 +6,7 @@ export const Product = list({
   access: allowAll,
   fields: {
     name: text({ validation: { isRequired: true } }),
+    order: integer(),
     description: text({
       ui: {
         displayMode: "textarea",

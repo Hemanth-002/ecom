@@ -72,6 +72,7 @@ var Product = (0, import_core2.list)({
   access: import_access2.allowAll,
   fields: {
     name: (0, import_fields2.text)({ validation: { isRequired: true } }),
+    order: (0, import_fields2.integer)(),
     description: (0, import_fields2.text)({
       ui: {
         displayMode: "textarea"

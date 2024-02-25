@@ -64,8 +64,11 @@ const LoginForm = ({ onChange, setOpen }) => {
         setsignInerror(response?.data?.authenticateUserWithPassword?.message);
         return;
       }
-      setCookie("userId",response?.data?.authenticateUserWithPassword?.item.id);
-      setUser(!!response);
+      setCookie(
+        "userId",
+        response?.data?.authenticateUserWithPassword?.item.id
+      );
+      setUser(response?.data?.authenticateUserWithPassword?.item.id);
     } catch (e) {
       console.log(e.message);
     }
@@ -141,9 +144,10 @@ const SignUp = ({ onChange, setOpen }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await login();
-      setCookie("userId",response?.data?.authenticateUserWithPassword?.item.id);
-      setUser(!!data);
+      const { data } = await login();
+      console.log(data);
+      setCookie("userId", data?.createUser?.id);
+      setUser(data?.createUser?.id);
     } catch (e) {
       setsignUpError(error?.message);
       return;

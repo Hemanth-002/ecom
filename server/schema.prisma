@@ -26,6 +26,7 @@ model User {
 model Product {
   id                String  @id @default(cuid())
   name              String  @default("")
+  order             Int?
   description       String  @default("")
   status            String? @default("draft")
   image             Image?  @relation("Image_product")

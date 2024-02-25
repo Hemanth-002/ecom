@@ -18,7 +18,7 @@ const products = () => {
   return (
     <div>
       <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
-      <div onClick={() => setIsOpen(false)}>
+      <div>
         <Pagination page={1} />
         <Products setIsOpen={setIsOpen} />
         <Pagination page={1} />

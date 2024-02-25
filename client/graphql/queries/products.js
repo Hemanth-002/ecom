@@ -1,12 +1,17 @@
 import { gql } from "@apollo/client";
 
 export const GET_PRODUCTS = gql`
-  query GET_PRODUCTS($take: Int, $skip: Int!) {
-    products(take: $take, skip: $skip) {
+  query GET_PRODUCTS(
+    $orderBy: [ProductOrderByInput!]!
+    $take: Int
+    $skip: Int!
+  ) {
+    products(orderBy: $orderBy, take: $take, skip: $skip) {
       id
       name
       price
       status
+      order
       description
       image {
         image {

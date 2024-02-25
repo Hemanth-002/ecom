@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "styled-components";
 import { IoMdClose } from "react-icons/io";
 import CartItem from "./CartItem";
+import ButtonPrimary from "./ButtonPrimary";
 import { getTotalCost } from "../utils";
 import { MyUser } from "../context/user";
 import { GET_CART } from "../graphql/queries/cart";
@@ -34,7 +35,8 @@ const FilterButton = styled.button`
 
 const Footer = styled.div`
   display: flex;
-  flex-direction: row-reverse;
+  padding: 10px;
+  justify-content: space-between;
 `;
 
 const CartGroup = styled.div``;
@@ -67,7 +69,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   });
 
   const toggleSidebar = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev);
   };
   const totalPrice = getTotalCost(cartsData || []);
 
@@ -98,6 +100,9 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         </div>
         <Footer>
           <h4> TotalPrice: ₹{totalPrice}</h4>
+          <div style={{ margin: "1rem" }}>
+            <ButtonPrimary className="footer" text="Proceed to Checkout" />
+          </div>
         </Footer>
       </Drawer>
     </>

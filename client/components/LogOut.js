@@ -16,7 +16,7 @@ const LogOut = () => {
     try {
       await signOut(); // Execute the sign out mutation
       deleteCookie("userId");
-      setUser(false); // Update user context
+      setUser(""); // Update user context
     } catch (e) {
       alert("Can't log out");
     }
