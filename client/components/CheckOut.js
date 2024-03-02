@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Router from "next/router";
 import { getCookie } from "cookies-next";
 import { loadStripe } from "@stripe/stripe-js";
 import { useMutation } from "@apollo/client";
@@ -52,9 +53,11 @@ const CheckOutForm = () => {
   const userId = getCookie("userId");
   const elements = useElements();
 
+  console.log({ env: process.env.NEXT_PUBLIC_STRIPE_KEY });
+
   const [checkout, { loading: checkoutLoading }] = useMutation(CHECKOUT);
 
-  async function stripeTokenHandler(token) {
+  const stripeTokenHandler = async (token) => {
     const paymentData = { token: token.id, userId: userId };
 
     // Use fetch to send the token ID and any other payment data to your server.
@@ -62,8 +65,8 @@ const CheckOutForm = () => {
     const response = await checkout({ variables: { ...paymentData } });
 
     // Return and display the result of the charge.
-    return response.json();
-  }
+    return response;
+  };
 
   const handleSubmit = async (e) => {
     // setLoading(true);
@@ -75,6 +78,7 @@ const CheckOutForm = () => {
     const card = elements.getElement(CardElement);
     const result = await stripe.createToken(card);
 
+    let order;
     if (result.error) {
       // Show error to your customer.
       setError(result.error.message);
@@ -83,17 +87,19 @@ const CheckOutForm = () => {
     } else {
       // Send the token to your server.
       // This function does not exist yet; we will define it in the next step.
-      stripeTokenHandler(result.token);
+      order = await stripeTokenHandler(result.token);
     }
-
     setLoading(false);
+    Router.push({
+      pathname: `/success`,
+    });
   };
 
-  if (loading) return <Spinner />;
+  if (loading || checkoutLoading) return <Spinner />;
   return (
     <CheckoutFormStyles onSubmit={handleSubmit}>
       <Name style={{ display: "flex", gap: "1rem" }}>
-        <FaCcStripe size={44}/>
+        <FaCcStripe size={44} />
         Card Payment
       </Name>
       {error && <Error>{error}</Error>}
@@ -104,6 +110,7 @@ const CheckOutForm = () => {
 };
 
 const CheckOut = () => {
+  if (!stripeLib) return <Spinner />;
   return (
     <Elements stripe={stripeLib}>
       <CheckOutForm />

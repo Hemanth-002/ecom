@@ -1,9 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "styled-components";
-import { IoMdClose } from "react-icons/io";
 import CartItem from "./CartItem";
-import ButtonPrimary from "./ButtonPrimary";
 import { getTotalCost } from "../utils";
 import { MyUser } from "../context/user";
 import { GET_CART } from "../graphql/queries/cart";
