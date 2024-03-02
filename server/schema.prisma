@@ -17,6 +17,7 @@ model User {
   email                   String    @unique @default("")
   password                String
   cart                    Cart[]    @relation("Cart_user")
+  orders                  Order[]   @relation("Order_user")
   createdAt               DateTime? @default(now())
   passwordResetToken      String?
   passwordResetIssuedAt   DateTime?
@@ -35,12 +36,13 @@ model Product {
 }
 
 model Image {
-  id        String   @id @default(cuid())
-  name      String   @default("")
-  image     Json?
-  altText   String   @default("")
-  product   Product? @relation("Image_product", fields: [productId], references: [id])
-  productId String?  @unique @map("product")
+  id                   String      @id @default(cuid())
+  name                 String      @default("")
+  image                Json?
+  altText              String      @default("")
+  product              Product?    @relation("Image_product", fields: [productId], references: [id])
+  productId            String?     @unique @map("product")
+  from_OrderItem_image OrderItem[] @relation("OrderItem_image")
 }
 
 model Cart {
@@ -52,5 +54,31 @@ model Cart {
   quantity  Int      @default(1)
 
   @@index([productId])
+  @@index([userId])
+}
+
+model OrderItem {
+  id          String  @id @default(cuid())
+  name        String  @default("")
+  description String  @default("")
+  image       Image?  @relation("OrderItem_image", fields: [imageId], references: [id])
+  imageId     String? @map("image")
+  price       Int?
+  quantity    Int?
+  order       Order?  @relation("OrderItem_order", fields: [orderId], references: [id])
+  orderId     String? @map("order")
+
+  @@index([imageId])
+  @@index([orderId])
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  totalAmount Int?
+  items       OrderItem[] @relation("OrderItem_order")
+  user        User?       @relation("Order_user", fields: [userId], references: [id])
+  userId      String?     @map("user")
+  charge      String      @default("")
+
   @@index([userId])
 }

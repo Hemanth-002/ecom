@@ -18,6 +18,8 @@
     "@fontsource/great-vibes": "^5.0.17",
     "@fontsource/pacifico": "^5.0.8",
     "@next/eslint-plugin-next": "^13.5.4",
+    "@stripe/react-stripe-js": "^2.5.1",
+    "@stripe/stripe-js": "^3.0.6",
     "apollo-upload-client": "15.0.0",
     "cookies-next": "^4.1.1",
     "eslint-plugin-next": "^0.0.0",

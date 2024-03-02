@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "styled-components";
 import { IoMdClose } from "react-icons/io";
+import Router from "next/router";
 import CartItem from "./CartItem";
 import ButtonPrimary from "./ButtonPrimary";
 import { getTotalCost } from "../utils";
@@ -71,6 +72,13 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   const toggleSidebar = () => {
     setIsOpen((prev) => !prev);
   };
+
+  const handleRoute = () => {
+    Router.push({
+      pathname: `/checkout`,
+    });
+  };
+
   const totalPrice = getTotalCost(cartsData || []);
 
   if (!userId) return null;
@@ -101,7 +109,11 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         <Footer>
           <h4> TotalPrice: ₹{totalPrice}</h4>
           <div style={{ margin: "1rem" }}>
-            <ButtonPrimary className="footer" text="Proceed to Checkout" />
+            <ButtonPrimary
+              className="footer"
+              text="Proceed to Checkout"
+              handleClick={handleRoute}
+            />
           </div>
         </Footer>
       </Drawer>

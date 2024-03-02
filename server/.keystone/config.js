@@ -34,7 +34,7 @@ __export(keystone_exports, {
 });
 module.exports = __toCommonJS(keystone_exports);
 var import_dotenv = __toESM(require("dotenv"));
-var import_core5 = require("@keystone-6/core");
+var import_core7 = require("@keystone-6/core");
 
 // src/schema/User.ts
 var import_core = require("@keystone-6/core");
@@ -58,6 +58,7 @@ var User = (0, import_core.list)({
         itemView: { fieldMode: "read" }
       }
     }),
+    orders: (0, import_fields.relationship)({ ref: "Order.user", many: true }),
     createdAt: (0, import_fields.timestamp)({
       defaultValue: { kind: "now" }
     })
@@ -145,12 +146,61 @@ var Cart = (0, import_core4.list)({
   }
 });
 
+// src/schema/OrderItem.ts
+var import_core5 = require("@keystone-6/core");
+var import_access5 = require("@keystone-6/core/access");
+var import_fields5 = require("@keystone-6/core/fields");
+var OrderItem = (0, import_core5.list)({
+  access: import_access5.allowAll,
+  fields: {
+    name: (0, import_fields5.text)({ validation: { isRequired: true } }),
+    description: (0, import_fields5.text)({ ui: { displayMode: "textarea" } }),
+    image: (0, import_fields5.relationship)({
+      ref: "Image",
+      ui: {
+        displayMode: "cards",
+        cardFields: ["image", "altText"],
+        inlineCreate: { fields: ["image", "altText", "name"] },
+        inlineEdit: { fields: ["image", "altText"] },
+        inlineConnect: true
+      }
+    }),
+    price: (0, import_fields5.integer)(),
+    quantity: (0, import_fields5.integer)(),
+    order: (0, import_fields5.relationship)({ ref: "Order.items" })
+  }
+});
+
+// src/schema/Order.ts
+var import_core6 = require("@keystone-6/core");
+var import_access6 = require("@keystone-6/core/access");
+var import_fields6 = require("@keystone-6/core/fields");
+var Order = (0, import_core6.list)({
+  access: import_access6.allowAll,
+  fields: {
+    label: (0, import_fields6.virtual)({
+      field: import_core6.graphql.field({
+        type: import_core6.graphql.String,
+        resolve(item) {
+          return `Cool Hem ${item.total}`;
+        }
+      })
+    }),
+    totalAmount: (0, import_fields6.integer)(),
+    items: (0, import_fields6.relationship)({ ref: "OrderItem.order", many: true }),
+    user: (0, import_fields6.relationship)({ ref: "User.orders" }),
+    charge: (0, import_fields6.text)()
+  }
+});
+
 // src/schema.ts
 var lists = {
   User,
   Product,
   Image,
-  Cart
+  Cart,
+  OrderItem,
+  Order
 };
 
 // auth.ts
@@ -168,7 +218,7 @@ var transporter = (0, import_nodemailer.createTransport)({
     pass: process.env.MAIL_PASSWORD
   }
 });
-var emailTemplate = (text4) => {
+var emailTemplate = (text6) => {
   return `
         <div style="
         border:1px solid black
@@ -176,7 +226,7 @@ var emailTemplate = (text4) => {
         font-family:sans-serif 
         ">
         <h2> Hello There!!</h2>
-        <p>${text4}</p>
+        <p>${text6}</p>
         </div>
         `;
 };
@@ -232,19 +282,106 @@ var addToCart = async (root, { productID }, context) => {
 };
 var addToCart_default = addToCart;
 
+// mutations/checkout.ts
+var import_stripe = __toESM(require("stripe"));
+var graphql2 = String.raw;
+var checkout = async (root, { token, userId }, context) => {
+  if (!userId) {
+    throw new Error("You Must be logged in ...");
+  }
+  const stripeConfig = new import_stripe.default(process.env.STRIPE_SECRET || "");
+  const user = await context.query.User.findOne({
+    where: { id: userId },
+    query: graphql2`
+    id
+    email
+    name
+    cart{
+        id
+        quantity
+        product {
+        name
+        price
+        description
+        image {
+            id
+            image {
+            publicUrl
+            }
+         }
+        }
+    }
+    `
+  });
+  const cartItems = user.cart.filter(
+    (cartItem) => cartItem.product
+  );
+  const totalAmount = cartItems.reduce((total, cartItem) => {
+    return total + cartItem.quantity * cartItem.product.price;
+  }, 0);
+  const charge = await stripeConfig.paymentIntents.create({
+    amount: totalAmount,
+    currency: "INR",
+    confirm: true,
+    payment_method_data: {
+      type: "card",
+      card: {
+        token
+      }
+    },
+    return_url: "https://yourwebsite.com/success"
+  }).catch((err) => {
+    console.log(err.message);
+  });
+  console.log(charge, token);
+  try {
+    const orderItems = cartItems.map((cartItem) => ({
+      name: cartItem.product.name,
+      description: cartItem.product.description,
+      price: cartItem.product.price,
+      image: { connect: { id: cartItem.product.image.id } }
+    }));
+    console.dir(cartItems, { depth: null });
+    console.dir(orderItems, { depth: null });
+    const order = await context.db.Order.createOne({
+      data: {
+        totalAmount: charge.amount,
+        charge: charge.id,
+        items: { create: orderItems },
+        user: { connect: { id: userId } }
+      }
+    });
+    console.log({ order });
+    const cartItemIds = cartItems.map((cartItem) => ({
+      id: cartItem.id
+    }));
+    console.log(cartItemIds);
+    await context.query.Cart.deleteMany({
+      where: cartItemIds
+    });
+    return order;
+  } catch (error) {
+    console.log(error.message);
+  }
+  return null;
+};
+var checkout_default = checkout;
+
 // mutations/index.ts
-var graphql = String.raw;
+var graphql3 = String.raw;
 var extendGraphQLSchema = (baseSchema) => {
   return (0, import_schema.mergeSchemas)({
     schemas: [baseSchema],
-    typeDefs: graphql`
+    typeDefs: graphql3`
       type Mutation {
         addToCart(productID: ID!): Cart
+        checkout(token: String!, userId: String!): Order
       }
     `,
     resolvers: {
       Mutation: {
-        addToCart: addToCart_default
+        addToCart: addToCart_default,
+        checkout: checkout_default
       }
     }
   });
@@ -254,7 +391,7 @@ var extendGraphQLSchema = (baseSchema) => {
 import_dotenv.default.config();
 var databaseURL = process.env.DATABASE_URL || "mongodb://localhost/shopee";
 var keystone_default = withAuth(
-  (0, import_core5.config)({
+  (0, import_core7.config)({
     server: {
       healthCheck: true,
       cors: {
