@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { getCookie } from "cookies-next";
 import { loadStripe } from "@stripe/stripe-js";
+import { useMutation } from "@apollo/client";
 import {
   Elements,
   CardElement,
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import { FaCcStripe } from "react-icons/fa";
 import ButtonPrimary from "./ButtonPrimary";
 import { Name } from "./CartItem";
 import Spinner from "./Spinner";
+import { CHECKOUT } from "../graphql/mutation/checkout";
+import { Error } from "./Login";
 // import CheckoutForm from "./CheckoutForm";
 
 const CheckoutFormStyles = styled.form`
@@ -44,20 +49,17 @@ const CheckOutForm = () => {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const stripe = useStripe();
+  const userId = getCookie("userId");
   const elements = useElements();
 
+  const [checkout, { loading: checkoutLoading }] = useMutation(CHECKOUT);
+
   async function stripeTokenHandler(token) {
-    const paymentData = { token: token.id };
+    const paymentData = { token: token.id, userId: userId };
 
     // Use fetch to send the token ID and any other payment data to your server.
     // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-    const response = await fetch("/charge", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(paymentData),
-    });
+    const response = await checkout({ variables: { ...paymentData } });
 
     // Return and display the result of the charge.
     return response.json();
@@ -76,6 +78,8 @@ const CheckOutForm = () => {
     if (result.error) {
       // Show error to your customer.
       setError(result.error.message);
+      setLoading(false);
+      return;
     } else {
       // Send the token to your server.
       // This function does not exist yet; we will define it in the next step.
@@ -88,7 +92,11 @@ const CheckOutForm = () => {
   if (loading) return <Spinner />;
   return (
     <CheckoutFormStyles onSubmit={handleSubmit}>
-      <Name>Card Payment</Name>
+      <Name style={{ display: "flex", gap: "1rem" }}>
+        <FaCcStripe size={44}/>
+        Card Payment
+      </Name>
+      {error && <Error>{error}</Error>}
       <CardElement options={CARD_ELEMENT_OPTIONS} />
       <ButtonPrimary text={"Pay Now"} disabled={!stripe} />
     </CheckoutFormStyles>
