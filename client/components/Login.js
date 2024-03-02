@@ -32,7 +32,10 @@ export const Error = styled.p`
 
 const LoginForm = ({ onChange, setOpen }) => {
   const { setUser } = MyUser();
-  const { inputs, handleChange } = useForm();
+  const { inputs, handleChange } = useForm({
+    email: "guest@gmail.com",
+    password: "guest@gmail.com",
+  });
   const router = useRouter();
   const [signInerror, setsignInerror] = useState("");
   const [forgotpassword, setforgotpassword] = useState(false);
@@ -100,7 +103,16 @@ const LoginForm = ({ onChange, setOpen }) => {
               onChange={handleChange}
             />
             {signInerror?.length ? <Error>{signInerror}</Error> : null}
-            <ButtonPrimary text={"Login"} type="submit" />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                gap: "1rem",
+              }}
+            >
+              <ButtonPrimary text={"Login"} type="submit" />
+              <ButtonPrimary text={"Guest Login"} />
+            </div>
             <Redirect onClick={() => setforgotpassword(true)}>
               Forgot Password ??
             </Redirect>

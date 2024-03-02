@@ -16,7 +16,7 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const ButtonPrimary = ({ text, handleClick, className }) => {
+const ButtonPrimary = ({ text, handleClick, className, disabled }) => {
   return (
     <Button className={className} onClick={handleClick}>
       {text}

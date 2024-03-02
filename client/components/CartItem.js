@@ -56,7 +56,7 @@ export const SubName = styled.p`
   }
 `;
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item, direction }) => {
   const { user: userId } = MyUser();
 
   const [removeCart, { loading }] = useMutation(REMOVE_FROM_CART, {
