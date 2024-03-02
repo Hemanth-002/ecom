@@ -7,10 +7,15 @@ import { User } from "./schema/User";
 import { Product } from "./schema/Product";
 import { Image } from "./schema/Image";
 import { Cart } from "./schema/Cart";
+import { OrderItem } from "./schema/OrderItem";
+import { Order } from "./schema/Order";
+
 
 export const lists = {
   User,
   Product,
   Image,
-  Cart
+  Cart,
+  OrderItem,
+  Order,
 };
