@@ -53,6 +53,8 @@ const CheckOutForm = () => {
   const userId = getCookie("userId");
   const elements = useElements();
 
+  console.log({ env: process.env.NEXT_PUBLIC_STRIPE_KEY });
+
   const [checkout, { loading: checkoutLoading }] = useMutation(CHECKOUT);
 
   const stripeTokenHandler = async (token) => {
