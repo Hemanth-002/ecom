@@ -56,7 +56,7 @@ export const SubName = styled.p`
   }
 `;
 
-const CartItem = ({ item, direction }) => {
+const CartItem = ({ item, orderType = false }) => {
   const { user: userId } = MyUser();
 
   const [removeCart, { loading }] = useMutation(REMOVE_FROM_CART, {
@@ -93,9 +93,13 @@ const CartItem = ({ item, direction }) => {
       <div>
         <Name>{item?.name}</Name>
         <Description>{item?.description}</Description>
-        <SubName>
-          ₹{item?.price}* {item?.quantity} = ₹{item?.price * item?.quantity}
-        </SubName>
+        {!orderType ? (
+          <SubName>
+            ₹{item?.price}* {item?.quantity} = ₹{item?.price * item?.quantity}
+          </SubName>
+        ) : (
+          <SubName>₹{item?.price}</SubName>
+        )}
       </div>
       <SubWrapper>
         {item?.quantity ? (
@@ -106,11 +110,13 @@ const CartItem = ({ item, direction }) => {
             {/* <Quantity>➖</Quantity> */}
           </>
         ) : null}
-        <AiOutlineDelete
-          size={24}
-          style={{ marginTop: "5px" }}
-          onClick={removeHandler}
-        />
+        {!orderType && (
+          <AiOutlineDelete
+            size={24}
+            style={{ marginTop: "5px" }}
+            onClick={removeHandler}
+          />
+        )}
         <img src={item.image} />
       </SubWrapper>
     </Wrapper>
