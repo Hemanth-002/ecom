@@ -37,7 +37,7 @@ const CartCheckout = () => {
       price: cartItem.product.price,
       status: cartItem.product.status,
       description: cartItem.product.description,
-      image: cartItem.product?.image?.image?.publicUrl,
+      image: cartItem.product?.image?.url || cartItem.product?.image?.image?.publicUrl,
       quantity: cartItem.quantity,
     };
   });

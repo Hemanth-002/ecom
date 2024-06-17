@@ -12,6 +12,7 @@ export const GET_CART = gql`
         description
         image {
           name
+          url
           image {
             publicUrl
           }

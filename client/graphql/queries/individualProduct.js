@@ -6,6 +6,7 @@ export const GET_PRODUCT = gql`
       description
       image {
         name
+        url
         image {
           publicUrl
         }

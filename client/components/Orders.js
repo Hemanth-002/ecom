@@ -33,7 +33,7 @@ const Orders = () => {
         price: e?.price,
         description: e?.description,
         quantity: e?.quantity,
-        image: e?.image?.image?.publicUrl || "",
+        image: e?.image?.url || e?.image?.image?.publicUrl || "",
       })),
     };
   });

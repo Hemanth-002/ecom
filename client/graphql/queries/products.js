@@ -14,6 +14,7 @@ export const GET_PRODUCTS = gql`
       order
       description
       image {
+        url
         image {
           publicUrl
         }
@@ -32,6 +33,7 @@ export const GET_PRODUCT = gql`
       status
       description
       image {
+        url
         image {
           publicUrl
         }

@@ -16,6 +16,7 @@ export const QUERY_USER = gql`
           price
           description
           image {
+            url
             image {
               publicUrl
             }

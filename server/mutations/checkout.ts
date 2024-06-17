@@ -28,6 +28,7 @@ const checkout = async (
         price
         description
         image {
+            url
             id
             image {
             publicUrl

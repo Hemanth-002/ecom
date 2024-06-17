@@ -282,6 +282,7 @@ type Image {
   name: String
   image: CloudinaryImage_File
   altText: String
+  url: String
   product: Product
 }
 
@@ -344,6 +345,7 @@ input ImageWhereInput {
   id: IDFilter
   name: StringFilter
   altText: StringFilter
+  url: StringFilter
   product: ProductWhereInput
 }
 
@@ -351,12 +353,14 @@ input ImageOrderByInput {
   id: OrderDirection
   name: OrderDirection
   altText: OrderDirection
+  url: OrderDirection
 }
 
 input ImageUpdateInput {
   name: String
   image: Upload
   altText: String
+  url: String
   product: ProductRelateToOneForUpdateInput
 }
 
@@ -378,6 +382,7 @@ input ImageCreateInput {
   name: String
   image: Upload
   altText: String
+  url: String
   product: ProductRelateToOneForCreateInput
 }
 

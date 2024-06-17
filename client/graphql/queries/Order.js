@@ -13,6 +13,7 @@ export const GET_ORDER = gql`
           quantity
           description
           image {
+            url
             image {
               publicUrl
             }

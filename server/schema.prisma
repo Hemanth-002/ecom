@@ -40,6 +40,7 @@ model Image {
   name                 String      @default("")
   image                Json?
   altText              String      @default("")
+  url                  String      @default("")
   product              Product?    @relation("Image_product", fields: [productId], references: [id])
   productId            String?     @unique @map("product")
   from_OrderItem_image OrderItem[] @relation("OrderItem_image")

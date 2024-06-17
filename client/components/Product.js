@@ -103,7 +103,7 @@ const Product = ({ product, setIsOpen }) => {
   if (loading) return <Spinner />;
   return (
     <Card>
-      <ProductImage src={product?.image?.image?.publicUrl} />
+      <ProductImage src={product?.image?.url || product?.image?.image?.publicUrl} />
       <CardTitle className="product-buldle" onClick={handleRoute}>
         {product.name}
       </CardTitle>

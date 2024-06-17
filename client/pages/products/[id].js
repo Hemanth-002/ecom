@@ -65,7 +65,7 @@ const IndividualProduct = () => {
 
   return (
     <Product>
-      <ProductImage src={image?.image?.publicUrl}></ProductImage>
+      <ProductImage src={image?.url || image?.image?.publicUrl}></ProductImage>
       <ProductDetails>
         <CardTitle>{name}</CardTitle>
         <Pricetag>₹{price}</Pricetag>

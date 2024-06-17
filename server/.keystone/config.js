@@ -122,6 +122,7 @@ var Image = (0, import_core3.list)({
       cloudinary
     }),
     altText: (0, import_fields3.text)(),
+    url: (0, import_fields3.text)(),
     product: (0, import_fields3.relationship)({
       ref: "Product.image"
     })
@@ -304,6 +305,7 @@ var checkout = async (root, { token, userId }, context) => {
         price
         description
         image {
+            url
             id
             image {
             publicUrl

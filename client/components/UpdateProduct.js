@@ -47,7 +47,7 @@ const UpdateProduct = () => {
 
   useEffect(() => {
     setInputs({
-      image: product?.image?.image?.publicUrl,
+      image: product?.image?.url || product?.image?.image?.publicUrl,
       name: product?.name,
       description: product?.description,
       price: product?.price,
@@ -101,7 +101,7 @@ const UpdateProduct = () => {
         onChange={handleChange}
       />
       <ProductImage
-        src={product?.image?.image?.publicUrl}
+        src={product?.image?.url || product?.image?.image?.publicUrl}
         style={{ width: "10rem", height: "10rem" }}
       />
       <FormLabel htmlFor="price">Price:</FormLabel>
